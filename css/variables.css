@@ -1,0 +1,35 @@
+/* ── Cyber-Cards color system ─────────────────────────────
+   Single source of truth for every color in the project.
+   Canvas code reads these at runtime via getComputedStyle —
+   never hardcode a hex value anywhere else. */
+
+:root {
+  /* Neon core palette */
+  --neon-cyan: #00f0ff;
+  --cyber-pink: #ff2fb9;
+  --neon-purple: #9d4dff;
+  --golden-yellow: #ffc857;
+  --terminal-green: #52ff9a;
+  --star-red: #ff6b4a;
+  --void-blue: #5a6fae;
+
+  /* Space backdrop */
+  --bg-deep: #030612;
+  --bg-nebula: #0a0f2a;
+  --star-white: #e8f4ff;
+
+  /* Panels & HUD chrome */
+  --panel-bg: rgba(5, 11, 28, 0.78);
+  --panel-border: rgba(0, 240, 255, 0.45);
+  --hud-dim: rgba(0, 240, 255, 0.55);
+  --text-primary: #d9faff;
+  --text-dim: #7a9fb3;
+
+  /* Glows */
+  --glow-cyan: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 24px rgba(0, 240, 255, 0.35);
+  --glow-pink: 0 0 8px rgba(255, 47, 185, 0.7), 0 0 24px rgba(255, 47, 185, 0.35);
+
+  /* Type */
+  --font-terminal: 'VT323', monospace;
+  --font-mono: 'Space Mono', monospace;
+}

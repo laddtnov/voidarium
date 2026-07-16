@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GALAXY MAP // Deep Space Observatory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <canvas id="galaxy-canvas"></canvas>
+
+  <!-- HUD chrome -->
+  <header class="hud hud-top-left">
+    <h1 class="hud-title">GALAXY MAP</h1>
+    <p class="hud-sub">DEEP SPACE OBSERVATORY · v1.0</p>
+  </header>
+
+  <div class="hud hud-top-right">
+    <p class="hud-readout"><span class="label">POS</span> <span id="hud-coords">0 : 0</span></p>
+    <p class="hud-readout"><span class="label">ZOOM</span> <span id="hud-zoom">1.00×</span></p>
+    <p class="hud-readout"><span class="label">TARGET</span> <span id="hud-target">—</span></p>
+  </div>
+
+  <div class="hud hud-bottom-right">
+    <button id="btn-spin" class="glow-btn" title="Toggle map rotation">⏸ SPIN</button>
+    <button id="btn-overview" class="glow-btn" title="Zoom out to full map">◎ OVERVIEW</button>
+  </div>
+
+  <!-- Destinations nav -->
+  <nav id="destinations" class="destinations">
+    <button id="dest-toggle" class="dest-toggle glow-btn">▸ DESTINATIONS</button>
+    <ul id="dest-list" class="dest-list"></ul>
+  </nav>
+
+  <!-- Legend -->
+  <footer class="hud hud-bottom-left">
+    <ul class="legend">
+      <li><span class="dot dot-galaxy"></span>GALAXY</li>
+      <li><span class="dot dot-star"></span>SUPERMASSIVE STAR</li>
+      <li><span class="dot dot-blackhole"></span>BLACK HOLE</li>
+      <li><span class="dot dot-void"></span>VOID</li>
+    </ul>
+    <p class="hud-hint">DRAG TO PAN · SCROLL TO ZOOM · CLICK AN OBJECT TO TRAVEL</p>
+  </footer>
+
+  <!-- Object info panel -->
+  <aside id="info-panel" class="info-panel hidden">
+    <div class="panel-header">
+      <span id="panel-type" class="type-badge">GALAXY</span>
+      <button id="panel-close" class="glow-btn panel-close" title="Close">✕</button>
+    </div>
+    <h2 id="panel-name" class="panel-name">—</h2>
+    <p id="panel-class" class="panel-class">—</p>
+    <dl class="panel-stats">
+      <div class="stat"><dt>DISTANCE</dt><dd id="panel-distance">—</dd></div>
+      <div class="stat"><dt>SIZE</dt><dd id="panel-size">—</dd></div>
+    </dl>
+    <p id="panel-desc" class="panel-desc"></p>
+  </aside>
+
+  <!-- CRT atmosphere -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
