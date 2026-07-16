@@ -32,12 +32,82 @@ html, body {
   color: var(--neon-cyan);
   text-shadow: var(--glow-cyan);
   line-height: 1;
+  position: relative;
+  pointer-events: auto;
+  cursor: default;
 }
+
+/* hover: RGB-split glitch — two clipped copies jitter over the title */
+.hud-title::before,
+.hud-title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  text-shadow: none;
+  pointer-events: none;
+}
+.hud-title:hover { animation: title-flicker 1.6s steps(1) infinite; }
+.hud-title:hover::before {
+  opacity: 0.8;
+  color: var(--cyber-pink);
+  animation: glitch-shift-a 0.5s steps(2, jump-none) infinite;
+}
+.hud-title:hover::after {
+  opacity: 0.8;
+  color: var(--terminal-green);
+  animation: glitch-shift-b 0.4s steps(2, jump-none) infinite reverse;
+}
+@keyframes glitch-shift-a {
+  0%   { transform: translate(-3px, -2px); clip-path: inset(0 0 62% 0); }
+  25%  { transform: translate(3px, 1px);   clip-path: inset(28% 0 40% 0); }
+  50%  { transform: translate(-2px, 2px);  clip-path: inset(55% 0 12% 0); }
+  75%  { transform: translate(2px, -1px);  clip-path: inset(10% 0 72% 0); }
+  100% { transform: translate(-3px, 1px);  clip-path: inset(40% 0 30% 0); }
+}
+@keyframes glitch-shift-b {
+  0%   { transform: translate(3px, 2px);   clip-path: inset(64% 0 8% 0); }
+  25%  { transform: translate(-3px, -1px); clip-path: inset(18% 0 58% 0); }
+  50%  { transform: translate(2px, -2px);  clip-path: inset(4% 0 78% 0); }
+  75%  { transform: translate(-2px, 1px);  clip-path: inset(46% 0 22% 0); }
+  100% { transform: translate(3px, -1px);  clip-path: inset(30% 0 44% 0); }
+}
+@keyframes title-flicker {
+  0%, 100% { opacity: 1; }
+  7%  { opacity: 0.65; }
+  9%  { opacity: 1; }
+  48% { opacity: 0.8; }
+  50% { opacity: 1; }
+  83% { opacity: 0.55; }
+  85% { opacity: 1; }
+}
+
 .hud-sub {
   font-size: 0.65rem;
   letter-spacing: 0.3em;
   color: var(--text-dim);
   margin-top: 6px;
+  pointer-events: auto;
+  cursor: default;
+  transition:
+    letter-spacing 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+}
+
+/* hover: the readout powers up — tracking expands, terminal green glow */
+.hud-sub:hover {
+  letter-spacing: 0.48em;
+  color: var(--terminal-green);
+  text-shadow: 0 0 8px var(--terminal-green), 0 0 20px rgba(82, 255, 154, 0.4);
+  animation: sub-scan 1.8s linear infinite;
+}
+@keyframes sub-scan {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.75; }
+  52%      { opacity: 1; }
+  54%      { opacity: 0.85; }
+  56%      { opacity: 1; }
 }
 
 .hud-top-right { top: 24px; right: 24px; text-align: right; }
