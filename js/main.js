@@ -4,6 +4,10 @@
 
 'use strict';
 
+// Non-cryptographic randomness for visual placement only (star/particle
+// positions, twinkle phase, color picks) — never security-sensitive.
+const rnd = () => Math.random(); // NOSONAR - S2245: visual randomness, not security-sensitive
+
 const canvas = document.getElementById('galaxy-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -73,11 +77,11 @@ function makeStars(count, parallax) {
   const stars = [];
   for (let i = 0; i < count; i++) {
     stars.push({
-      x: Math.random() * 2200,
-      y: Math.random() * 1400,
-      r: Math.random() * 1.3 + 0.3,
-      phase: Math.random() * Math.PI * 2,
-      speed: Math.random() * 0.002 + 0.0005,
+      x: rnd() * 2200,
+      y: rnd() * 1400,
+      r: rnd() * 1.3 + 0.3,
+      phase: rnd() * Math.PI * 2,
+      speed: rnd() * 0.002 + 0.0005,
       parallax,
     });
   }
@@ -102,7 +106,7 @@ function drawStars(t) {
 /* ── Object runtime state ── */
 const objects = galaxiesData.objects.map((data) => {
   const colors = data.palette.map(cvar);
-  const state = { data, colors, angle: Math.random() * Math.PI * 2, parent: null };
+  const state = { data, colors, angle: rnd() * Math.PI * 2, parent: null };
   if (data.type === 'galaxy') state.particles = makeGalaxyParticles(data);
   if (data.type === 'blackhole') state.disk = makeDiskParticles(data);
   return state;
@@ -133,33 +137,39 @@ function childAlpha(o) {
   return Math.min(Math.max((parentScreenR - 110) / 90, 0), 1);
 }
 
+/* Weighted pick among 3 palette slots: mostly slot 0, rest split 1/2 */
+function pickColorIndex() {
+  if (rnd() < 0.55) return 0;
+  return rnd() < 0.7 ? 1 : 2;
+}
+
 function makeGalaxyParticles(data) {
   const pts = [];
   const arms = data.arms || 3;
   for (let i = 0; i < 260; i++) {
-    const t = Math.random();
+    const t = rnd();
     let r, a;
     if (data.elliptical) {
-      r = data.radius * Math.pow(Math.random(), 0.6);
-      a = Math.random() * Math.PI * 2;
+      r = data.radius * Math.pow(rnd(), 0.6);
+      a = rnd() * Math.PI * 2;
     } else if (data.ring) {
       // most stars pile up in the collision ring, a few in the core
-      if (Math.random() < 0.72) {
-        r = data.radius * (0.8 + Math.random() * 0.2);
+      if (rnd() < 0.72) {
+        r = data.radius * (0.8 + rnd() * 0.2);
       } else {
-        r = data.radius * Math.random() * 0.3;
+        r = data.radius * rnd() * 0.3;
       }
-      a = Math.random() * Math.PI * 2;
+      a = rnd() * Math.PI * 2;
     } else {
       const arm = i % arms;
       r = data.radius * (0.1 + 0.9 * Math.pow(t, 0.65));
-      a = arm * ((Math.PI * 2) / arms) + t * 3.0 + (Math.random() - 0.5) * 0.4;
+      a = arm * ((Math.PI * 2) / arms) + t * 3.0 + (rnd() - 0.5) * 0.4;
     }
     pts.push({
       r, a,
-      size: Math.random() * 1.7 + 0.5,
-      ci: Math.random() < 0.55 ? 0 : (Math.random() < 0.7 ? 1 : 2),
-      alpha: Math.random() * 0.55 + 0.35,
+      size: rnd() * 1.7 + 0.5,
+      ci: pickColorIndex(),
+      alpha: rnd() * 0.55 + 0.35,
     });
   }
   return pts;
@@ -168,13 +178,13 @@ function makeGalaxyParticles(data) {
 function makeDiskParticles(data) {
   const pts = [];
   for (let i = 0; i < 90; i++) {
-    const r = data.radius * (1.35 + Math.random() * 1.15);
+    const r = data.radius * (1.35 + rnd() * 1.15);
     pts.push({
       r,
-      a: Math.random() * Math.PI * 2,
+      a: rnd() * Math.PI * 2,
       speed: 0.0012 * Math.sqrt(data.radius / r), // Keplerian: inner orbits faster
-      size: Math.random() * 1.8 + 0.7,
-      ci: Math.random() < 0.6 ? 0 : 1,
+      size: rnd() * 1.8 + 0.7,
+      ci: rnd() < 0.6 ? 0 : 1,
     });
   }
   return pts;
@@ -454,7 +464,7 @@ canvas.addEventListener('pointermove', (e) => {
 
 canvas.addEventListener('pointerup', (e) => {
   canvas.classList.remove('dragging');
-  const wasDrag = drag && drag.moved;
+  const wasDrag = drag?.moved;
   drag = null;
   if (wasDrag) return;
   const hit = pick(e.clientX, e.clientY);
@@ -580,19 +590,20 @@ document.getElementById('dest-toggle').addEventListener('click', () => {
   }
 }
 
-/* ── Main loop ── */
+/* ── Main loop ──
+   Split into single-purpose steps so `frame` stays a short orchestrator:
+   physics → camera → arrival check → render → HUD text. */
 let lastT = performance.now();
 
-function frame(t) {
-  const dt = Math.min(t - lastT, 50);
-  lastT = t;
-
+function updatePhysics(dt) {
   if (spinning) mapRotation += MAP_SPIN_SPEED * dt;
   for (const o of objects) {
     o.angle += o.data.spinSpeed * dt;
     if (o.disk) for (const p of o.disk) p.a += p.speed * dt;
   }
+}
 
+function updateCamera(dt) {
   // camera follows its target as it orbits inside a spinning galaxy
   if (followTarget) {
     const wp = worldPos(followTarget);
@@ -605,18 +616,25 @@ function frame(t) {
   camera.x += (camera.tx - camera.x) * k;
   camera.y += (camera.ty - camera.y) * k;
   camera.zoom += (camera.tz - camera.zoom) * k;
+}
 
-  // arrival → open the info panel
-  if (panelPending) {
-    const closePos = Math.hypot(camera.x - camera.tx, camera.y - camera.ty) < 30 / camera.zoom;
-    const closeZoom = Math.abs(camera.zoom - camera.tz) < camera.tz * 0.04;
-    if (closePos && closeZoom) {
-      openPanel(panelPending);
-      panelPending = null;
-    }
+function checkArrival() {
+  if (!panelPending) return;
+  const closePos = Math.hypot(camera.x - camera.tx, camera.y - camera.ty) < 30 / camera.zoom;
+  const closeZoom = Math.abs(camera.zoom - camera.tz) < camera.tz * 0.04;
+  if (closePos && closeZoom) {
+    openPanel(panelPending);
+    panelPending = null;
   }
+}
 
-  // render
+function labelVisibility(o) {
+  const hl = o === hovered || o === selected;
+  if (o.parent) return childAlpha(o) > 0.6 ? hl : null; // interior labels only once revealed
+  return camera.zoom < 1.1 || hl ? hl : null;
+}
+
+function renderScene(t) {
   ctx.fillStyle = COLOR.bg;
   ctx.fillRect(0, 0, W, H);
   drawStars(t);
@@ -627,19 +645,27 @@ function frame(t) {
   for (const o of objects) if (o.data.type === 'blackhole') drawBlackHole(o, t);
 
   for (const o of objects) {
-    const hl = o === hovered || o === selected;
-    if (o.parent) {
-      // interior labels appear only once the host galaxy is opened up
-      if (childAlpha(o) > 0.6) drawLabel(o, hl);
-    } else if (camera.zoom < 1.1 || hl) {
-      drawLabel(o, hl);
-    }
+    const hl = labelVisibility(o);
+    if (hl !== null) drawLabel(o, hl);
   }
 
   if (selected) drawSelectionRing(selected, t);
+}
 
+function updateHud() {
   hudCoords.textContent = `${Math.round(camera.x)} : ${Math.round(camera.y)}`;
   hudZoom.textContent = camera.zoom.toFixed(2) + '×';
+}
+
+function frame(t) {
+  const dt = Math.min(t - lastT, 50);
+  lastT = t;
+
+  updatePhysics(dt);
+  updateCamera(dt);
+  checkArrival();
+  renderScene(t);
+  updateHud();
 
   requestAnimationFrame(frame);
 }
