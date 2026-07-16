@@ -120,6 +120,11 @@ for (const o of objects) {
 /* smallest first so a black hole inside a galaxy is still clickable */
 const pickOrder = [...objects].sort((a, b) => a.data.radius - b.data.radius);
 
+/* Objects grouped by type once, so the render loop can draw each layer
+   with a plain `for` — no per-frame filtering, lower branch count. */
+const byType = { void: [], galaxy: [], star: [], blackhole: [] };
+for (const o of objects) byType[o.data.type].push(o);
+
 /* Interior objects orbit with their host galaxy's spin */
 function worldPos(o) {
   if (!o.parent) return { x: o.data.x, y: o.data.y };
@@ -634,21 +639,24 @@ function labelVisibility(o) {
   return camera.zoom < 1.1 || hl ? hl : null;
 }
 
+function drawAllLabels() {
+  for (const o of objects) {
+    const hl = labelVisibility(o);
+    if (hl !== null) drawLabel(o, hl);
+  }
+}
+
 function renderScene(t) {
   ctx.fillStyle = COLOR.bg;
   ctx.fillRect(0, 0, W, H);
   drawStars(t);
 
-  for (const o of objects) if (o.data.type === 'void') drawVoid(o, t);
-  for (const o of objects) if (o.data.type === 'galaxy') drawGalaxy(o, t);
-  for (const o of objects) if (o.data.type === 'star') drawStarObj(o, t);
-  for (const o of objects) if (o.data.type === 'blackhole') drawBlackHole(o, t);
+  for (const o of byType.void) drawVoid(o, t);
+  for (const o of byType.galaxy) drawGalaxy(o, t);
+  for (const o of byType.star) drawStarObj(o, t);
+  for (const o of byType.blackhole) drawBlackHole(o, t);
 
-  for (const o of objects) {
-    const hl = labelVisibility(o);
-    if (hl !== null) drawLabel(o, hl);
-  }
-
+  drawAllLabels();
   if (selected) drawSelectionRing(selected, t);
 }
 
