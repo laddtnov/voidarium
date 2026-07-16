@@ -645,3 +645,21 @@ function frame(t) {
 }
 
 requestAnimationFrame(frame);
+
+/* Deep links: ?goto=<object-id> flies there on load, e.g. ?goto=ton-618.
+   Add &snap=1 to jump instantly instead of flying. */
+{
+  const params = new URLSearchParams(location.search);
+  const id = params.get('goto');
+  if (id && byId.has(id)) {
+    const o = byId.get(id);
+    travelTo(o);
+    if (params.has('snap')) {
+      camera.x = camera.tx;
+      camera.y = camera.ty;
+      camera.zoom = camera.tz;
+      panelPending = null;
+      openPanel(o);
+    }
+  }
+}

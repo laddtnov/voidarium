@@ -6,6 +6,14 @@ Voidarium is a zero-dependency galaxy map rendered entirely on a single `<canvas
 
 ![status](https://img.shields.io/badge/status-exploring-00f0ff) ![stack](https://img.shields.io/badge/stack-vanilla_JS_%2B_canvas-ff2fb9) ![deps](https://img.shields.io/badge/dependencies-none-52ff9a)
 
+![Voidarium overview — the full spinning map](assets/screenshots/overview.png)
+
+| Inside the Milky Way | Visiting TON 618 |
+|---|---|
+| ![Milky Way interior with its stars and Sagittarius A*](assets/screenshots/milky-way-interior.png) | ![TON 618 ultramassive black hole up close](assets/screenshots/ton-618.png) |
+
+![Sagittarius A* — deep inside the Milky Way's glowing core](assets/screenshots/sagittarius-a.png)
+
 ## ✦ What's inside
 
 **24 real astronomical objects across four classes:**
@@ -27,6 +35,7 @@ Voidarium is a zero-dependency galaxy map rendered entirely on a single `<canvas
 - **Orbit lock** — when you visit an object inside a spinning galaxy, the camera follows it around its orbit; drag or scroll to break the lock
 - **Holographic info cards** — scanline-swept panels with a VT323 typewriter effect, real distances, sizes, and descriptions
 - **Free navigation** — drag to pan, scroll to zoom toward the cursor, destinations drawer with the full nested catalog
+- **Deep links** — `?goto=ton-618` flies to an object on load; add `&snap=1` to jump there instantly
 - **Physically flavored rendering** — Keplerian accretion disks whose inner particles orbit faster and pass behind/in front of the event horizon, pulsing supergiants with diffraction spikes, ring and elliptical galaxy particle distributions, parallax starfield
 
 ## ✦ Running it
