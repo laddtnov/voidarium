@@ -1,2 +1,16 @@
+# macOS
 .DS_Store
+
+# Local tooling config
 .claude/
+
+# Secrets & environment — never commit real values
+.env
+.env.*
+!.env.example
+
+# Vercel local link metadata (contains org/project IDs)
+.vercel/
+
+# Node (if tooling gets added later)
+node_modules/
