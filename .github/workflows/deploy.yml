@@ -12,6 +12,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Least-privilege default: this workflow only reads the repo and calls
+# out to Vercel — it never needs to write back to GitHub.
+permissions:
+  contents: read
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
