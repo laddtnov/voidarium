@@ -1,4 +1,4 @@
-/* ── Galaxy Map engine ────────────────────────────────────
+/* ── Universe Map engine ──────────────────────────────────
    World-space objects + one camera (x, y, zoom) + a global
    map rotation. Travel = easing the camera targets. */
 
@@ -109,6 +109,7 @@ const objects = galaxiesData.objects.map((data) => {
   const state = { data, colors, angle: rnd() * Math.PI * 2, parent: null };
   if (data.type === 'galaxy') state.particles = makeGalaxyParticles(data);
   if (data.type === 'blackhole') state.disk = makeDiskParticles(data);
+  if (data.type === 'system') state.planets = makePlanets(data);
   return state;
 });
 
@@ -122,7 +123,7 @@ const pickOrder = [...objects].sort((a, b) => a.data.radius - b.data.radius);
 
 /* Objects grouped by type once, so the render loop can draw each layer
    with a plain `for` — no per-frame filtering, lower branch count. */
-const byType = { void: [], galaxy: [], star: [], neutron: [], blackhole: [] };
+const byType = { void: [], galaxy: [], star: [], neutron: [], system: [], blackhole: [] };
 for (const o of objects) byType[o.data.type].push(o);
 
 /* Interior objects orbit with their host galaxy's spin */
@@ -190,6 +191,22 @@ function makeDiskParticles(data) {
       speed: 0.0012 * Math.sqrt(data.radius / r), // Keplerian: inner orbits faster
       size: rnd() * 1.8 + 0.7,
       ci: rnd() < 0.6 ? 0 : 1,
+    });
+  }
+  return pts;
+}
+
+/* 8 planets at increasing radii around the system's star, inner ones
+   orbiting faster (same Keplerian flavor as the black hole disks). */
+function makePlanets(data) {
+  const pts = [];
+  for (let i = 0; i < 8; i++) {
+    const r = data.radius * (1.5 + i * 0.55);
+    pts.push({
+      r,
+      a: rnd() * Math.PI * 2,
+      speed: 0.0025 / Math.sqrt(i + 1),
+      size: rnd() * 1.1 + 0.8,
     });
   }
   return pts;
@@ -314,6 +331,111 @@ function drawNeutronStar(o, t) {
   ctx.beginPath();
   ctx.arc(sc.x, sc.y, Math.max(R * 0.5, 2), 0, Math.PI * 2);
   ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+function drawSolarSystem(o, t) {
+  const { data, colors } = o;
+  const va = childAlpha(o);
+  if (va < 0.02) return;
+  const wp = worldPos(o);
+  const sc = worldToScreen(wp.x, wp.y);
+  const z = camera.zoom;
+  const R = Math.max(data.radius * 0.5 * z, 3);
+
+  // faint orbit rings
+  ctx.strokeStyle = colors[2] || colors[0];
+  ctx.globalAlpha = 0.18 * va;
+  ctx.lineWidth = 1;
+  for (const p of o.planets) {
+    ctx.beginPath();
+    ctx.arc(sc.x, sc.y, p.r * z, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  // the Sun
+  const glowR = Math.max(R * 3, 8);
+  const g = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, glowR);
+  g.addColorStop(0, COLOR.starWhite);
+  g.addColorStop(0.4, colors[0]);
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.globalAlpha = va;
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, glowR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = COLOR.starWhite;
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, Math.max(R * 0.6, 2), 0, Math.PI * 2);
+  ctx.fill();
+
+  // the 8 planets
+  for (const p of o.planets) {
+    const px = sc.x + Math.cos(p.a) * p.r * z;
+    const py = sc.y + Math.sin(p.a) * p.r * z;
+    ctx.globalAlpha = 0.9 * va;
+    ctx.fillStyle = colors[1] || colors[0];
+    const s = Math.max(p.size * Math.min(z * 2, 1.6), 0.8);
+    ctx.fillRect(px, py, s, s);
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* Interstellar "Gargantua"-style silhouette: a tall lensed halo wrapping
+   over the poles plus a thin bright band where the tilted disk is seen
+   nearly edge-on. Used for a distant/unselected TON 618; up close it
+   switches to the normal accretion-disk renderer below. */
+function drawGargantuaBlackHole(o, t) {
+  const { data } = o;
+  const va = childAlpha(o);
+  if (va < 0.02) return;
+  const wp = worldPos(o);
+  const sc = worldToScreen(wp.x, wp.y);
+  const z = camera.zoom;
+  const R = Math.max(data.radius * z, 3);
+
+  // ambient glow
+  const ambient = ctx.createRadialGradient(sc.x, sc.y, R * 0.8, sc.x, sc.y, R * 2.6);
+  ambient.addColorStop(0, 'rgba(255,255,255,0.22)');
+  ambient.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.globalAlpha = va;
+  ctx.fillStyle = ambient;
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, R * 2.6, 0, Math.PI * 2);
+  ctx.fill();
+
+  // vertical halo — light lensed up and over the poles, taller than wide
+  ctx.save();
+  ctx.translate(sc.x, sc.y);
+  ctx.scale(1, 1.18);
+  const halo = ctx.createRadialGradient(0, 0, R * 0.95, 0, 0, R * 1.4);
+  halo.addColorStop(0, 'rgba(255,255,255,0)');
+  halo.addColorStop(0.55, 'rgba(232,234,242,0.9)');
+  halo.addColorStop(1, 'rgba(232,234,242,0)');
+  ctx.fillStyle = halo;
+  ctx.beginPath();
+  ctx.arc(0, 0, R * 1.4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // event horizon — true black
+  ctx.globalAlpha = va;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, R, 0, Math.PI * 2);
+  ctx.fill();
+
+  // thin bright equatorial band — the tilted disk seen almost edge-on
+  const bandW = R * 3.6;
+  const bandH = Math.max(R * 0.22, 2);
+  const band = ctx.createLinearGradient(sc.x - bandW / 2, 0, sc.x + bandW / 2, 0);
+  band.addColorStop(0, 'rgba(232,234,242,0)');
+  band.addColorStop(0.15, 'rgba(232,234,242,0.85)');
+  band.addColorStop(0.5, 'rgba(255,255,255,1)');
+  band.addColorStop(0.85, 'rgba(232,234,242,0.85)');
+  band.addColorStop(1, 'rgba(232,234,242,0)');
+  ctx.fillStyle = band;
+  ctx.fillRect(sc.x - bandW / 2, sc.y - bandH / 2, bandW, bandH);
   ctx.globalAlpha = 1;
 }
 
@@ -554,6 +676,7 @@ const TYPE_LABEL = {
   galaxy: 'GALAXY',
   star: 'SUPERMASSIVE STAR',
   neutron: 'NEUTRON STAR',
+  system: 'STAR SYSTEM',
   blackhole: 'BLACK HOLE',
   void: 'COSMIC VOID',
 };
@@ -657,6 +780,7 @@ function updatePhysics(dt) {
   for (const o of objects) {
     o.angle += o.data.spinSpeed * dt;
     if (o.disk) for (const p of o.disk) p.a += p.speed * dt;
+    if (o.planets) for (const p of o.planets) p.a += p.speed * dt;
   }
 }
 
@@ -707,7 +831,11 @@ function renderScene(t) {
   for (const o of byType.galaxy) drawGalaxy(o, t);
   for (const o of byType.star) drawStarObj(o, t);
   for (const o of byType.neutron) drawNeutronStar(o, t);
-  for (const o of byType.blackhole) drawBlackHole(o, t);
+  for (const o of byType.system) drawSolarSystem(o, t);
+  for (const o of byType.blackhole) {
+    const useGargantua = o.data.gargantuaStyle && o !== selected;
+    if (useGargantua) drawGargantuaBlackHole(o, t); else drawBlackHole(o, t);
+  }
 
   drawAllLabels();
   if (selected) drawSelectionRing(selected, t);

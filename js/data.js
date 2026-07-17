@@ -183,7 +183,7 @@ const galaxiesData = {
     {
       id: 'stephenson-2-18', name: 'STEPHENSON 2-18', type: 'star',
       class: 'Red supergiant · M6',
-      parent: 'milky-way', local: { r: 98, a: 4.0 }, radius: 13,
+      parent: 'milky-way', local: { r: 120, a: 5.6 }, radius: 13,
       palette: ['--star-red', '--cyber-pink'],
       spinSpeed: 0.0003,
       distance: '~18,900 ly',
@@ -253,6 +253,18 @@ const galaxiesData = {
       desc: 'The suspected source of a giant flare recorded on Earth in 2004 — a starquake on a neutron star wrapped in a magnetic field trillions of times stronger than any magnet ever built, briefly outshining its entire host galaxy in gamma rays.'
     },
 
+    /* ══ STAR SYSTEMS (a star plus its orbiting planets) ══ */
+    {
+      id: 'solar-system', name: 'SOLAR SYSTEM', type: 'system',
+      class: 'Star system · G2V + 8 planets',
+      parent: 'milky-way', local: { r: 85, a: 3.7 }, radius: 14,
+      palette: ['--golden-yellow', '--star-white', '--neon-cyan'],
+      spinSpeed: 0.0003,
+      distance: '0 ly — home',
+      size: '~120 AU across, to the heliopause',
+      desc: 'Our own star system: the Sun and eight planets bound by its gravity, orbiting roughly 26,000 light-years from the Milky Way’s core. Every human who has ever lived called one of these worlds home.'
+    },
+
     /* ══ BLACK HOLES ══ */
     {
       id: 'sagittarius-a', name: 'SAGITTARIUS A*', type: 'blackhole',
@@ -298,6 +310,7 @@ const galaxiesData = {
       id: 'ton-618', name: 'TON 618', type: 'blackhole',
       class: 'Ultramassive black hole · quasar',
       parent: 'ton-618-host', local: { r: 0, a: 0 }, radius: 48,
+      gargantuaStyle: true, // from a distance renders as a lensed silhouette; up close (selected) it switches to the normal accretion-disk look
       palette: ['--neon-purple', '--cyber-pink'],
       spinSpeed: 0.0005,
       distance: '~10.8 billion ly',
