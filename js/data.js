@@ -183,7 +183,7 @@ const galaxiesData = {
     {
       id: 'stephenson-2-18', name: 'STEPHENSON 2-18', type: 'star',
       class: 'Red supergiant · M6',
-      parent: 'milky-way', local: { r: 98, a: 4.0 }, radius: 13,
+      parent: 'milky-way', local: { r: 120, a: 5.6 }, radius: 13,
       palette: ['--star-red', '--cyber-pink'],
       spinSpeed: 0.0003,
       distance: '~18,900 ly',
