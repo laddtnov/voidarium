@@ -16,16 +16,17 @@ Voidarium is a zero-dependency galaxy map rendered entirely on a single `<canvas
 
 ## ✦ What's inside
 
-**24 real astronomical objects across four classes:**
+**32 real astronomical objects across five classes:**
 
 | Class | Objects |
 |---|---|
-| 🌀 **Galaxies** (10) | Milky Way, Andromeda, Triangulum, Whirlpool, Sombrero, Pinwheel, Messier 87, Large Magellanic Cloud, Centaurus A, Cartwheel |
+| 🌀 **Galaxies** (15) | Milky Way, Andromeda, Triangulum, Whirlpool, Sombrero, Pinwheel, Messier 87, Large Magellanic Cloud, Centaurus A, Cartwheel, Cigar Galaxy (M82), Topsy Turvy (NGC 1313), Sculptor Galaxy (NGC 253), Phoenix Cluster Galaxy, TON 618 Host Galaxy |
 | ⭐ **Supermassive stars** (5) | UY Scuti, Stephenson 2-18, Betelgeuse, Eta Carinae, R136a1 |
+| 🟢 **Neutron stars** (3) | M82 X-2, NGC 1313 X-2, NGC 253 Magnetar |
 | ⚫ **Black holes** (6) | Sagittarius A*, M87*, M31*, M104*, TON 618, Phoenix A |
 | 🕳 **Cosmic voids** (3) | Boötes Void, Local Void, Eridanus Supervoid |
 
-**Galaxies have interiors.** Stars and black holes live *inside* their real host galaxies — Sagittarius A* anchors the Milky Way, R136a1 burns in the Large Magellanic Cloud, M87* hides in Messier 87. Zoom into a galaxy and its residents fade into view, orbiting along with the galaxy's spin. Voids stay out in deep space, because that's what voids are: the enormous empty gaps *between* galaxies.
+**Galaxies have interiors.** Stars, neutron stars, and black holes live *inside* their real host galaxies — Sagittarius A* anchors the Milky Way, R136a1 burns in the Large Magellanic Cloud, M87* hides in Messier 87, and the ultraluminous pulsar M82 X-2 spins inside the starburst Cigar Galaxy. TON 618 and Phoenix A — previously floating alone in deep space — now sit inside their real host galaxies too. Zoom into a galaxy and its residents fade into view, orbiting along with the galaxy's spin. Voids stay out in deep space, because that's what voids are: the enormous empty gaps *between* galaxies.
 
 ## ✦ Features
 
@@ -36,7 +37,7 @@ Voidarium is a zero-dependency galaxy map rendered entirely on a single `<canvas
 - **Holographic info cards** — scanline-swept panels with a VT323 typewriter effect, real distances, sizes, and descriptions
 - **Free navigation** — drag to pan, scroll to zoom toward the cursor, destinations drawer with the full nested catalog
 - **Deep links** — `?goto=ton-618` flies to an object on load; add `&snap=1` to jump there instantly
-- **Physically flavored rendering** — Keplerian accretion disks whose inner particles orbit faster and pass behind/in front of the event horizon, pulsing supergiants with diffraction spikes, ring and elliptical galaxy particle distributions, parallax starfield
+- **Physically flavored rendering** — Keplerian accretion disks whose inner particles orbit faster and pass behind/in front of the event horizon, pulsing supergiants with diffraction spikes, sweeping lighthouse beams on neutron stars, ring and elliptical galaxy particle distributions, parallax starfield
 
 ## ✦ Running it
 

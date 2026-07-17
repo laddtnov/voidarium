@@ -139,6 +139,7 @@ html, body {
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .dot-galaxy    { background: var(--neon-cyan);    box-shadow: 0 0 6px var(--neon-cyan); }
 .dot-star      { background: var(--golden-yellow); box-shadow: 0 0 6px var(--golden-yellow); }
+.dot-neutron   { background: var(--terminal-green); box-shadow: 0 0 6px var(--terminal-green); }
 .dot-blackhole { background: var(--cyber-pink);   box-shadow: 0 0 6px var(--cyber-pink); }
 .dot-void      { background: var(--void-blue);    box-shadow: 0 0 6px var(--void-blue); }
 .hud-hint {
@@ -280,6 +281,7 @@ html, body {
 }
 .type-badge.galaxy    { color: var(--neon-cyan); }
 .type-badge.star      { color: var(--golden-yellow); }
+.type-badge.neutron   { color: var(--terminal-green); }
 .type-badge.blackhole { color: var(--cyber-pink); }
 .type-badge.void      { color: var(--void-blue); }
 .panel-close { padding: 5px 10px; }

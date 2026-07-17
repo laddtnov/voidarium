@@ -122,7 +122,7 @@ const pickOrder = [...objects].sort((a, b) => a.data.radius - b.data.radius);
 
 /* Objects grouped by type once, so the render loop can draw each layer
    with a plain `for` — no per-frame filtering, lower branch count. */
-const byType = { void: [], galaxy: [], star: [], blackhole: [] };
+const byType = { void: [], galaxy: [], star: [], neutron: [], blackhole: [] };
 for (const o of objects) byType[o.data.type].push(o);
 
 /* Interior objects orbit with their host galaxy's spin */
@@ -264,6 +264,56 @@ function drawStarObj(o, t) {
     ctx.stroke();
   }
   ctx.restore();
+  ctx.globalAlpha = 1;
+}
+
+function drawNeutronStar(o, t) {
+  const { data, colors } = o;
+  const va = childAlpha(o);
+  if (va < 0.02) return;
+  const wp = worldPos(o);
+  const sc = worldToScreen(wp.x, wp.y);
+  const z = camera.zoom;
+  const pulse = Math.max(0.4, 1 + 0.35 * Math.sin(t * 0.02 + o.angle * 3)); // sharp pulsar blink
+  const R = Math.max(data.radius * 0.9 * z * pulse, 3);
+
+  // lighthouse beams sweeping with the star's own (very fast) spin
+  ctx.save();
+  ctx.translate(sc.x, sc.y);
+  ctx.rotate(o.angle + mapRotation);
+  const beamLen = Math.max(data.radius * 6 * z, 30);
+  for (let i = 0; i < 2; i++) {
+    const beamGrad = ctx.createLinearGradient(0, 0, beamLen, 0);
+    beamGrad.addColorStop(0, colors[0]);
+    beamGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.35 * va;
+    ctx.fillStyle = beamGrad;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(beamLen, -4);
+    ctx.lineTo(beamLen, 4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.rotate(Math.PI);
+  }
+  ctx.restore();
+
+  // tiny, intensely bright core — a city-sized point of light
+  const glowR = Math.max(R * 3, 10);
+  const g = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, glowR);
+  g.addColorStop(0, COLOR.starWhite);
+  g.addColorStop(0.3, colors[0]);
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.globalAlpha = va;
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, glowR, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = COLOR.starWhite;
+  ctx.beginPath();
+  ctx.arc(sc.x, sc.y, Math.max(R * 0.5, 2), 0, Math.PI * 2);
+  ctx.fill();
   ctx.globalAlpha = 1;
 }
 
@@ -503,6 +553,7 @@ const hudTarget = document.getElementById('hud-target');
 const TYPE_LABEL = {
   galaxy: 'GALAXY',
   star: 'SUPERMASSIVE STAR',
+  neutron: 'NEUTRON STAR',
   blackhole: 'BLACK HOLE',
   void: 'COSMIC VOID',
 };
@@ -585,9 +636,10 @@ document.getElementById('dest-toggle').addEventListener('click', () => {
     addItem(g, false);
     for (const c of objects.filter((o) => o.parent === g)) addItem(c, true);
   }
-  addGroup('DEEP SPACE');
-  for (const o of objects) {
-    if (!o.parent && o.data.type === 'blackhole') addItem(o, false);
+  const loneBlackHoles = objects.filter((o) => !o.parent && o.data.type === 'blackhole');
+  if (loneBlackHoles.length) {
+    addGroup('DEEP SPACE');
+    for (const o of loneBlackHoles) addItem(o, false);
   }
   addGroup('COSMIC VOIDS');
   for (const o of objects) {
@@ -654,6 +706,7 @@ function renderScene(t) {
   for (const o of byType.void) drawVoid(o, t);
   for (const o of byType.galaxy) drawGalaxy(o, t);
   for (const o of byType.star) drawStarObj(o, t);
+  for (const o of byType.neutron) drawNeutronStar(o, t);
   for (const o of byType.blackhole) drawBlackHole(o, t);
 
   drawAllLabels();
