@@ -118,6 +118,56 @@ const galaxiesData = {
       size: '~150,000 ly across',
       desc: 'A cosmic bullseye formed when a smaller galaxy punched straight through its disk 200 million years ago. The impact sent a ring-shaped shockwave of star formation expanding outward like a ripple in a pond.'
     },
+    {
+      id: 'm82', name: 'CIGAR GALAXY · M82', type: 'galaxy',
+      class: 'Starburst irregular · I0',
+      x: -1500, y: 800, radius: 75, arms: 2,
+      palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
+      spinSpeed: 0.00016,
+      distance: '~12 million ly',
+      size: '~37,000 ly across',
+      desc: 'A furious starburst galaxy, forming stars ten times faster than the Milky Way after a close pass with its neighbor M81. Its disk glows pink with ionized hydrogen blown out by supernovae. Zoom in for the neutron star hiding in the wreckage.'
+    },
+    {
+      id: 'ngc1313', name: 'TOPSY TURVY · NGC 1313', type: 'galaxy',
+      class: 'Barred spiral · SB(s)d',
+      x: 1000, y: 1050, radius: 65, arms: 3,
+      palette: ['--terminal-green', '--star-white', '--neon-cyan'],
+      spinSpeed: 0.00015,
+      distance: '~15 million ly',
+      size: '~50,000 ly across',
+      desc: 'A lopsided barred spiral with no clear center of rotation, likely still recovering from a past collision. Prolific at forming stars for its modest size — and home to one of the most extreme neutron stars ever clocked.'
+    },
+    {
+      id: 'ngc253', name: 'SCULPTOR GALAXY · NGC 253', type: 'galaxy',
+      class: 'Starburst spiral · SAB(s)c',
+      x: 900, y: -1080, radius: 85, arms: 4,
+      palette: ['--golden-yellow', '--star-white', '--terminal-green'],
+      spinSpeed: 0.00010,
+      distance: '~11.4 million ly',
+      size: '~70,000 ly across',
+      desc: 'One of the dustiest galaxies known, its core hidden behind thick lanes of star-forming gas. A giant flare recorded in 2004 is suspected to have come from a magnetar buried deep inside it — one of the few ever traced to another galaxy.'
+    },
+    {
+      id: 'phoenix-cluster-galaxy', name: 'PHOENIX CLUSTER GALAXY', type: 'galaxy',
+      class: 'Brightest cluster galaxy · cD', elliptical: true,
+      x: -1550, y: -350, radius: 80,
+      palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
+      spinSpeed: 0.00004,
+      distance: '~5.8 billion ly',
+      size: '~200,000 ly across',
+      desc: 'The monstrous central galaxy of the Phoenix Cluster, bathed in more X-ray light than almost any other cluster known. Cooling gas rains onto it from the surrounding cluster medium, fueling one of the highest star-formation rates ever measured in a giant galaxy.'
+    },
+    {
+      id: 'ton-618-host', name: 'TON 618 HOST GALAXY', type: 'galaxy',
+      class: 'Unresolved · quasar host', elliptical: true,
+      x: 850, y: 720, radius: 75,
+      palette: ['--neon-purple', '--star-white', '--cyber-pink'],
+      spinSpeed: 0.00006,
+      distance: '~10.8 billion ly',
+      size: 'unresolved — quasar outshines it',
+      desc: 'The galaxy presumed to surround TON 618 is so thoroughly outshone by its quasar that its actual shape has never been directly resolved — this is an artist’s reconstruction of what a host massive enough to feed such a black hole would look like.'
+    },
 
     /* ══ SUPERMASSIVE STARS (inside their host galaxies) ══ */
     {
@@ -171,6 +221,38 @@ const galaxiesData = {
       desc: 'The most massive and one of the most luminous stars known — nearly 5 million times brighter than the Sun. It burns so fiercely that it sheds an Earth’s mass of material every month in a ferocious stellar wind.'
     },
 
+    /* ══ NEUTRON STARS (city-sized cores left behind by supernovae) ══ */
+    {
+      id: 'm82-x2', name: 'M82 X-2', type: 'neutron',
+      class: 'Ultraluminous X-ray pulsar',
+      parent: 'm82', local: { r: 42, a: 2.1 }, radius: 8,
+      palette: ['--terminal-green', '--star-white'],
+      spinSpeed: 0.0012,
+      distance: '~12 million ly',
+      size: '~1.4 solar masses, ~20 km wide',
+      desc: 'A neutron star no bigger than a city, somehow shining 10 million times brighter than the Sun — physics that shouldn’t work unless its magnetic field is scavenging far more infalling gas than anyone expected. Discovered in 2014, it was the first pulsar found powering an ultraluminous X-ray source.'
+    },
+    {
+      id: 'ngc1313-x2', name: 'NGC 1313 X-2', type: 'neutron',
+      class: 'Accreting X-ray pulsar',
+      parent: 'ngc1313', local: { r: 38, a: 5.0 }, radius: 7,
+      palette: ['--terminal-green', '--neon-cyan'],
+      spinSpeed: 0.0014,
+      distance: '~15 million ly',
+      size: '~1.4 solar masses, ~20 km wide',
+      desc: 'One of the most extreme spin-up cases on record — this dead star is dragging in so much matter from a companion that its rotation is measurably accelerating year over year, a rare direct look at a neutron star being spun faster by accretion.'
+    },
+    {
+      id: 'ngc253-magnetar', name: 'NGC 253 MAGNETAR', type: 'neutron',
+      class: 'Magnetar candidate · soft gamma repeater',
+      parent: 'ngc253', local: { r: 55, a: 3.4 }, radius: 8,
+      palette: ['--golden-yellow', '--star-white'],
+      spinSpeed: 0.0009,
+      distance: '~11.4 million ly',
+      size: '~1.4 solar masses, ~20 km wide',
+      desc: 'The suspected source of a giant flare recorded on Earth in 2004 — a starquake on a neutron star wrapped in a magnetic field trillions of times stronger than any magnet ever built, briefly outshining its entire host galaxy in gamma rays.'
+    },
+
     /* ══ BLACK HOLES ══ */
     {
       id: 'sagittarius-a', name: 'SAGITTARIUS A*', type: 'blackhole',
@@ -215,7 +297,7 @@ const galaxiesData = {
     {
       id: 'ton-618', name: 'TON 618', type: 'blackhole',
       class: 'Ultramassive black hole · quasar',
-      x: 850, y: 720, radius: 48,
+      parent: 'ton-618-host', local: { r: 0, a: 0 }, radius: 48,
       palette: ['--neon-purple', '--cyber-pink'],
       spinSpeed: 0.0005,
       distance: '~10.8 billion ly',
@@ -225,7 +307,7 @@ const galaxiesData = {
     {
       id: 'phoenix-a', name: 'PHOENIX A', type: 'blackhole',
       class: 'Ultramassive black hole',
-      x: -1500, y: -300, radius: 55,
+      parent: 'phoenix-cluster-galaxy', local: { r: 0, a: 0 }, radius: 55,
       palette: ['--cyber-pink', '--golden-yellow'],
       spinSpeed: 0.0004,
       distance: '~5.8 billion ly',
