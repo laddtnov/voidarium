@@ -110,6 +110,7 @@ const objects = galaxiesData.objects.map((data) => {
   if (data.type === 'galaxy') state.particles = makeGalaxyParticles(data);
   if (data.type === 'blackhole') state.disk = makeDiskParticles(data);
   if (data.type === 'system') state.planets = makePlanets(data);
+  if (data.type === 'nebula') state.puffs = makeNebulaPuffs(data);
   return state;
 });
 
@@ -123,7 +124,7 @@ const pickOrder = [...objects].sort((a, b) => a.data.radius - b.data.radius);
 
 /* Objects grouped by type once, so the render loop can draw each layer
    with a plain `for` — no per-frame filtering, lower branch count. */
-const byType = { void: [], galaxy: [], star: [], neutron: [], system: [], blackhole: [] };
+const byType = { void: [], galaxy: [], nebula: [], star: [], neutron: [], system: [], blackhole: [] };
 for (const o of objects) byType[o.data.type].push(o);
 
 /* Interior objects orbit with their host galaxy's spin */
@@ -212,6 +213,23 @@ function makePlanets(data) {
   return pts;
 }
 
+/* A handful of soft, irregularly placed glowing puffs of gas —
+   rotate together with the nebula's own (slow) spin. */
+function makeNebulaPuffs(data) {
+  const pts = [];
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    pts.push({
+      r: data.radius * rnd() * 0.85,
+      a: rnd() * Math.PI * 2,
+      size: data.radius * (0.35 + rnd() * 0.4),
+      ci: pickColorIndex(),
+      alpha: 0.35 + rnd() * 0.3,
+    });
+  }
+  return pts;
+}
+
 /* ── Renderers ── */
 function drawGalaxy(o, t) {
   const { data, colors } = o;
@@ -241,6 +259,37 @@ function drawGalaxy(o, t) {
     const s = Math.max(p.size * Math.min(z * 2, 1.6), 0.6);
     ctx.fillRect(px, py, s, s);
   }
+  ctx.globalAlpha = 1;
+}
+
+/* A soft, roiling cloud of overlapping glow-puffs, additively blended
+   so overlapping colors brighten like real ionized gas. */
+function drawNebula(o, t) {
+  const { data, colors } = o;
+  const va = childAlpha(o);
+  if (va < 0.02) return;
+  const wp = worldPos(o);
+  const sc = worldToScreen(wp.x, wp.y);
+  const z = camera.zoom;
+  const rot = o.angle + mapRotation;
+
+  ctx.globalCompositeOperation = 'lighter';
+  for (const p of o.puffs) {
+    const a = p.a + rot;
+    const px = sc.x + Math.cos(a) * p.r * z;
+    const py = sc.y + Math.sin(a) * p.r * z;
+    const R = Math.max(p.size * z, 2);
+    const g = ctx.createRadialGradient(px, py, 0, px, py, R);
+    const color = colors[p.ci] || colors[0];
+    g.addColorStop(0, color);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = p.alpha * va;
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(px, py, R, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation = 'source-over';
   ctx.globalAlpha = 1;
 }
 
@@ -674,6 +723,7 @@ const hudTarget = document.getElementById('hud-target');
 
 const TYPE_LABEL = {
   galaxy: 'GALAXY',
+  nebula: 'NEBULA',
   star: 'SUPERMASSIVE STAR',
   neutron: 'NEUTRON STAR',
   system: 'STAR SYSTEM',
@@ -829,6 +879,7 @@ function renderScene(t) {
 
   for (const o of byType.void) drawVoid(o, t);
   for (const o of byType.galaxy) drawGalaxy(o, t);
+  for (const o of byType.nebula) drawNebula(o, t);
   for (const o of byType.star) drawStarObj(o, t);
   for (const o of byType.neutron) drawNeutronStar(o, t);
   for (const o of byType.system) drawSolarSystem(o, t);

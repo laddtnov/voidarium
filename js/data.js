@@ -168,6 +168,36 @@ const galaxiesData = {
       size: 'unresolved — quasar outshines it',
       desc: 'The galaxy presumed to surround TON 618 is so thoroughly outshone by its quasar that its actual shape has never been directly resolved — this is an artist’s reconstruction of what a host massive enough to feed such a black hole would look like.'
     },
+    {
+      id: 'ic1101', name: 'IC 1101', type: 'galaxy',
+      class: 'Supergiant elliptical · cD', elliptical: true,
+      x: 1650, y: 150, radius: 115,
+      palette: ['--neon-purple', '--star-white', '--void-blue'],
+      spinSpeed: 0.00003,
+      distance: '~1.04 billion ly',
+      size: 'up to ~4 million ly across (disputed)',
+      desc: 'One of the largest galaxies ever discovered, anchoring the Abell 2029 cluster. Early estimates put its faint outer halo at 4 million light-years across — 40 times the Milky Way — though modern reanalysis suggests a smaller, still-staggering true extent.'
+    },
+    {
+      id: 'm60', name: 'MESSIER 60', type: 'galaxy',
+      class: 'Giant elliptical · E2', elliptical: true,
+      x: -900, y: 1000, radius: 95,
+      palette: ['--golden-yellow', '--star-white', '--neon-purple'],
+      spinSpeed: 0.00006,
+      distance: '~55 million ly',
+      size: '~120,000 ly across',
+      desc: 'A giant elliptical in the Virgo Cluster, seen from Earth almost overlapping its spiral neighbor NGC 4647 — an "odd couple" caught mid-gravitational-dance, though they are millions of light-years apart in reality. Zoom in for the black hole anchoring its core.'
+    },
+    {
+      id: 'maffei1', name: 'MAFFEI 1', type: 'galaxy',
+      class: 'Giant elliptical · E3', elliptical: true,
+      x: 280, y: -380, radius: 60,
+      palette: ['--star-red', '--star-white', '--golden-yellow'],
+      spinSpeed: 0.00005,
+      distance: '~9.8 million ly',
+      size: '~150,000 ly across',
+      desc: 'A giant elliptical hiding directly behind the dust and stars of the Milky Way\'s own disk, in a region astronomers call the Zone of Avoidance. Invisible in ordinary light, it was only discovered in 1968 by looking in infrared.'
+    },
 
     /* ══ SUPERMASSIVE STARS (inside their host galaxies) ══ */
     {
@@ -265,6 +295,48 @@ const galaxiesData = {
       desc: 'Our own star system: the Sun and eight planets bound by its gravity, orbiting roughly 26,000 light-years from the Milky Way’s core. Every human who has ever lived called one of these worlds home.'
     },
 
+    /* ══ NEBULAE (glowing clouds of gas and dust) ══ */
+    {
+      id: 'orion-nebula', name: 'ORION NEBULA · M42', type: 'nebula',
+      class: 'Diffuse emission nebula · stellar nursery',
+      parent: 'milky-way', local: { r: 95, a: 2.2 }, radius: 26,
+      palette: ['--cyber-pink', '--neon-purple', '--star-white'],
+      spinSpeed: 0.00006,
+      distance: '~1,344 ly',
+      size: '~24 ly across',
+      desc: 'The nearest large stellar nursery to Earth, visible to the naked eye as a fuzzy patch in Orion\'s sword. At its heart, the Trapezium Cluster of hot young stars lights up the surrounding gas — over 1,000 new stars are forming inside it right now.'
+    },
+    {
+      id: 'crab-nebula', name: 'CRAB NEBULA · M1', type: 'nebula',
+      class: 'Supernova remnant',
+      parent: 'milky-way', local: { r: 45, a: 0.4 }, radius: 18,
+      palette: ['--neon-cyan', '--neon-purple', '--star-white'],
+      spinSpeed: 0.00007,
+      distance: '~6,500 ly',
+      size: '~11 ly across',
+      desc: 'Wreckage from a supernova so bright that Chinese and Arab astronomers recorded it as a daylight star in the year 1054. The very first entry in Messier\'s catalog, it still hides a neutron star at its core, spinning 30 times every second.'
+    },
+    {
+      id: 'helix-nebula', name: 'HELIX NEBULA · NGC 7293', type: 'nebula',
+      class: 'Planetary nebula · "Eye of God"',
+      parent: 'milky-way', local: { r: 130, a: 1.0 }, radius: 20,
+      palette: ['--terminal-green', '--neon-cyan', '--star-white'],
+      spinSpeed: 0.00005,
+      distance: '~650 ly',
+      size: '~2.5 ly across',
+      desc: 'The closest planetary nebula to Earth — the outer layers of a dying Sun-like star, shed into space and lit up by the exposed white-dwarf core left behind. Its layered, eye-like structure earned it the nickname "Eye of God".'
+    },
+    {
+      id: 'tarantula-nebula', name: 'TARANTULA NEBULA · 30 DORADUS', type: 'nebula',
+      class: 'Giant emission nebula · starburst region',
+      parent: 'lmc', local: { r: 48, a: 3.5 }, radius: 30,
+      palette: ['--cyber-pink', '--golden-yellow', '--star-white'],
+      spinSpeed: 0.00008,
+      distance: '~163,000 ly (LMC)',
+      size: '~1,800 ly across',
+      desc: 'The most violent star-forming region in the Local Group — so luminous that, at the distance of the Orion Nebula, it would cast shadows on Earth. It cradles the super star cluster that gave birth to R136a1, the most massive star known.'
+    },
+
     /* ══ BLACK HOLES ══ */
     {
       id: 'sagittarius-a', name: 'SAGITTARIUS A*', type: 'blackhole',
@@ -305,6 +377,16 @@ const galaxiesData = {
       distance: '~29.3 million ly',
       size: '~1 billion solar masses',
       desc: 'One of the most massive black holes ever found in a nearby galaxy, anchoring the Sombrero’s brilliant core — a billion Suns’ worth of gravity packed into a region smaller than our Solar System.'
+    },
+    {
+      id: 'm60-star', name: 'M60*', type: 'blackhole',
+      class: 'Supermassive black hole',
+      parent: 'm60', local: { r: 0, a: 0 }, radius: 17,
+      palette: ['--golden-yellow', '--neon-purple'],
+      spinSpeed: 0.0006,
+      distance: '~55 million ly',
+      size: '~4.5 billion solar masses',
+      desc: 'A black hole roughly a thousand times heavier than the Milky Way\'s own, anchoring one of the largest known galaxies in the nearby universe — extreme even by the standards of giant ellipticals.'
     },
     {
       id: 'ton-618', name: 'TON 618', type: 'blackhole',
