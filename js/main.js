@@ -265,7 +265,7 @@ function drawGalaxy(o, t) {
 /* A soft, roiling cloud of overlapping glow-puffs, additively blended
    so overlapping colors brighten like real ionized gas. */
 function drawNebula(o, t) {
-  const { data, colors } = o;
+  const { colors } = o;
   const va = childAlpha(o);
   if (va < 0.02) return;
   const wp = worldPos(o);
