@@ -16,18 +16,23 @@ Voidarium is a zero-dependency universe map rendered entirely on a single `<canv
 
 ## ✦ What's inside
 
-**33 real astronomical objects across six classes:**
+**41 real astronomical objects across seven classes:**
 
 | Class | Objects |
 |---|---|
-| 🌀 **Galaxies** (15) | Milky Way, Andromeda, Triangulum, Whirlpool, Sombrero, Pinwheel, Messier 87, Large Magellanic Cloud, Centaurus A, Cartwheel, Cigar Galaxy (M82), Topsy Turvy (NGC 1313), Sculptor Galaxy (NGC 253), Phoenix Cluster Galaxy, TON 618 Host Galaxy |
+| 🌀 **Galaxies** (18) | Milky Way, Andromeda, Triangulum, Whirlpool, Sombrero, Pinwheel, Messier 87, Large Magellanic Cloud, Centaurus A, Cartwheel, Cigar Galaxy (M82), Topsy Turvy (NGC 1313), Sculptor Galaxy (NGC 253), Phoenix Cluster Galaxy, TON 618 Host Galaxy, IC 1101, Messier 60, Maffei 1 |
+| 🟣 **Nebulae** (4) | Orion Nebula (M42), Crab Nebula (M1), Helix Nebula (NGC 7293), Tarantula Nebula (30 Doradus) |
 | ⭐ **Supermassive stars** (5) | UY Scuti, Stephenson 2-18, Betelgeuse, Eta Carinae, R136a1 |
 | 🟢 **Neutron stars** (3) | M82 X-2, NGC 1313 X-2, NGC 253 Magnetar |
 | 🪐 **Star systems** (1) | The Solar System — the Sun and its 8 planets, orbiting inside the Milky Way |
-| ⚫ **Black holes** (6) | Sagittarius A*, M87*, M31*, M104*, TON 618, Phoenix A |
+| ⚫ **Black holes** (7) | Sagittarius A*, M87*, M31*, M104*, M60*, TON 618, Phoenix A |
 | 🕳 **Cosmic voids** (3) | Boötes Void, Local Void, Eridanus Supervoid |
 
-**Galaxies have interiors.** Stars, neutron stars, black holes, and even our own Solar System live *inside* their real host galaxies — Sagittarius A* anchors the Milky Way, R136a1 burns in the Large Magellanic Cloud, M87* hides in Messier 87, and the ultraluminous pulsar M82 X-2 spins inside the starburst Cigar Galaxy. TON 618 and Phoenix A — previously floating alone in deep space — now sit inside their real host galaxies too. Zoom into a galaxy and its residents fade into view, orbiting along with the galaxy's spin. Voids stay out in deep space, because that's what voids are: the enormous empty gaps *between* galaxies.
+**Galaxies have interiors.** Stars, nebulae, neutron stars, black holes, and even our own Solar System live *inside* their real host galaxies — Sagittarius A* anchors the Milky Way, R136a1 and the Tarantula Nebula burn in the Large Magellanic Cloud, M87* hides in Messier 87, and the ultraluminous pulsar M82 X-2 spins inside the starburst Cigar Galaxy. TON 618 and Phoenix A — previously floating alone in deep space — now sit inside their real host galaxies too. Zoom into a galaxy and its residents fade into view, orbiting along with the galaxy's spin. Voids stay out in deep space, because that's what voids are: the enormous empty gaps *between* galaxies.
+
+**Three new giant ellipticals join the map**, rendered with the same particle-based elliptical shape as Messier 87 and Centaurus A: IC 1101 (one of the largest galaxies ever found), Messier 60 (an "odd couple" with its spiral neighbor NGC 4647, and now home to its own black hole, M60*), and Maffei 1 (a giant elliptical hidden directly behind the Milky Way's own disk, only found in 1968 by looking in infrared).
+
+**Nebulae glow like real ionized gas.** Each is a handful of soft, overlapping glow-puffs blended with additive compositing, so where two puffs overlap the color brightens instead of just layering flat — a cheap trick that reads as a roiling gas cloud instead of a static blob.
 
 **TON 618 has two looks.** From a distance it renders as a lensed silhouette in the style of *Interstellar*'s Gargantua — a tall halo of light bent over the poles with a thin bright band where its tilted disk is seen edge-on. Click it and travel there, and it switches to the same detailed neon accretion-disk rendering every other black hole uses.
 
