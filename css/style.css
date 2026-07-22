@@ -139,6 +139,7 @@ html, body {
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .dot-galaxy    { background: var(--neon-cyan);    box-shadow: 0 0 6px var(--neon-cyan); }
 .dot-nebula    { background: var(--neon-purple);  box-shadow: 0 0 6px var(--neon-purple); }
+.dot-cluster   { background: var(--ice-blue);     box-shadow: 0 0 6px var(--ice-blue); }
 .dot-star      { background: var(--golden-yellow); box-shadow: 0 0 6px var(--golden-yellow); }
 .dot-neutron   { background: var(--terminal-green); box-shadow: 0 0 6px var(--terminal-green); }
 .dot-system    { background: var(--star-white);   box-shadow: 0 0 6px var(--star-white); }
@@ -283,6 +284,7 @@ html, body {
 }
 .type-badge.galaxy    { color: var(--neon-cyan); }
 .type-badge.nebula    { color: var(--neon-purple); }
+.type-badge.cluster   { color: var(--ice-blue); }
 .type-badge.star      { color: var(--golden-yellow); }
 .type-badge.neutron   { color: var(--terminal-green); }
 .type-badge.system    { color: var(--star-white); }
