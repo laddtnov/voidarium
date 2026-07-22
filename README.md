@@ -16,20 +16,22 @@ Voidarium is a zero-dependency universe map rendered entirely on a single `<canv
 
 ## ✦ What's inside
 
-**53 real astronomical objects across eight classes:**
+**54 real astronomical objects across eight classes:**
 
 | Class | Objects |
 |---|---|
 | 🌀 **Galaxies** (25) | Milky Way, Andromeda, Triangulum, Whirlpool, Sombrero, Pinwheel, Messier 87, Large Magellanic Cloud, Centaurus A, Cartwheel, Cigar Galaxy (M82), Topsy Turvy (NGC 1313), Sculptor Galaxy (NGC 253), Phoenix Cluster Galaxy, TON 618 Host Galaxy, IC 1101, Messier 60, Maffei 1, Cygnus A, NGC 1300, NGC 3923, Antennae Galaxies, NGC 1569, Seyfert Galaxy (M77), Holm 15A |
 | 🟣 **Nebulae** (4) | Orion Nebula (M42), Crab Nebula (M1), Helix Nebula (NGC 7293), Tarantula Nebula (30 Doradus) |
 | 🔵 **Star clusters** (2) | Pleiades (M45), Omega Centauri |
-| ⭐ **Supermassive stars** (5) | UY Scuti, Stephenson 2-18, Betelgeuse, Eta Carinae, R136a1 |
+| ⭐ **Notable stars** (6) | UY Scuti, Stephenson 2-18, Betelgeuse, Eta Carinae, R136a1, Sirius |
 | 🟢 **Neutron stars** (3) | M82 X-2, NGC 1313 X-2, NGC 253 Magnetar |
 | 🪐 **Star systems** (1) | The Solar System — the Sun and its 8 planets, orbiting inside the Milky Way |
 | ⚫ **Black holes** (10) | Sagittarius A*, M87*, M31*, M104*, M60*, Cygnus A*, M77*, Holm 15A*, TON 618, Phoenix A |
 | 🕳 **Cosmic voids** (3) | Boötes Void, Local Void, Eridanus Supervoid |
 
 **Galaxies have interiors.** Stars, nebulae, star clusters, neutron stars, black holes, and even our own Solar System live *inside* their real host galaxies — Sagittarius A* anchors the Milky Way, R136a1 and the Tarantula Nebula burn in the Large Magellanic Cloud, M87* hides in Messier 87, and the ultraluminous pulsar M82 X-2 spins inside the starburst Cigar Galaxy. TON 618 and Phoenix A — previously floating alone in deep space — now sit inside their real host galaxies too. Zoom into a galaxy and its residents fade into view, orbiting along with the galaxy's spin. Voids stay out in deep space, because that's what voids are: the enormous empty gaps *between* galaxies.
+
+**The Milky Way got roomier.** With a dozen objects now sharing its interior — including Sirius, the brightest star in Earth's night sky, and its hidden white-dwarf companion — the galaxy's radius grew and every resident was respaced so nothing crowds its neighbors.
 
 **A full gallery of galaxy varieties**, all reusing the same particle-based renderer with different shape flags: elliptical radio galaxy (Cygnus A, whose black hole may have a fainter companion caught mid-merger), barred spiral (NGC 1300), elliptical shell galaxy (NGC 3923 — concentric rings of stars still settling after a merger), colliding spirals (the Antennae Galaxies), dwarf starburst (NGC 1569), Seyfert galaxy (M77, the namesake of the entire active-galaxy class), and Type-cD galaxy (Holm 15A, holder of the largest known galactic core, anchored by a ~40-billion-solar-mass black hole).
 

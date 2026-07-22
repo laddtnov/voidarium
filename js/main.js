@@ -338,13 +338,15 @@ function drawCluster(o, t) {
   const rot = o.angle + mapRotation;
 
   if (data.nebulosity) {
-    const haze = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, Math.max(data.radius * z, 6));
+    const hazeR = Math.max(data.radius * 1.3 * z, 6);
+    const haze = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, hazeR);
     haze.addColorStop(0, colors[0]);
+    haze.addColorStop(0.5, colors[1] || colors[0]);
     haze.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.globalAlpha = 0.22 * va;
+    ctx.globalAlpha = 0.34 * va;
     ctx.fillStyle = haze;
     ctx.beginPath();
-    ctx.arc(sc.x, sc.y, Math.max(data.radius * z, 6), 0, Math.PI * 2);
+    ctx.arc(sc.x, sc.y, hazeR, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -804,7 +806,7 @@ const TYPE_LABEL = {
   galaxy: 'GALAXY',
   nebula: 'NEBULA',
   cluster: 'STAR CLUSTER',
-  star: 'SUPERMASSIVE STAR',
+  star: 'NOTABLE STAR',
   neutron: 'NEUTRON STAR',
   system: 'STAR SYSTEM',
   blackhole: 'BLACK HOLE',
