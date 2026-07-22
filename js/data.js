@@ -198,6 +198,100 @@ const galaxiesData = {
       size: '~150,000 ly across',
       desc: 'A giant elliptical hiding directly behind the dust and stars of the Milky Way\'s own disk, in a region astronomers call the Zone of Avoidance. Invisible in ordinary light, it was only discovered in 1968 by looking in infrared.'
     },
+    {
+      id: 'cygnus-a', name: 'CYGNUS A', type: 'galaxy',
+      class: 'Elliptical radio galaxy · FR II', elliptical: true,
+      x: -1200, y: -1200, radius: 100,
+      palette: ['--cyber-pink', '--star-white', '--void-blue'],
+      spinSpeed: 0.00005,
+      distance: '~760 million ly',
+      size: 'radio jets span ~300,000 ly',
+      desc: 'The archetypal radio galaxy — the first strong extragalactic radio source ever discovered, in 1939. Its central black hole fires jets of plasma far beyond the visible galaxy, glowing so brightly in radio waves that it was found decades before its faint elliptical host was.'
+    },
+    {
+      id: 'ngc1300', name: 'NGC 1300', type: 'galaxy',
+      class: 'Barred spiral · SB(rs)bc',
+      x: 1150, y: -1050, radius: 90, arms: 2,
+      palette: ['--neon-purple', '--star-white', '--neon-cyan'],
+      spinSpeed: 0.00009,
+      distance: '~61 million ly',
+      size: '~110,000 ly across',
+      desc: 'One of the most photogenic barred spirals known — its straight central bar feeds gas so efficiently that a miniature spiral has formed in its own nucleus, a structure astronomers call a "grand-design" inner disk.'
+    },
+    {
+      id: 'ngc3923', name: 'NGC 3923', type: 'galaxy',
+      class: 'Elliptical shell galaxy · E4-5', elliptical: true, shell: true,
+      x: -1200, y: 550, radius: 85,
+      palette: ['--golden-yellow', '--star-white', '--void-blue'],
+      spinSpeed: 0.00004,
+      distance: '~65 million ly',
+      size: '~150,000 ly across',
+      desc: 'Wrapped in over twenty faint concentric shells of stars, like the rings of an onion — frozen ripples left behind after this galaxy swallowed a smaller companion. Each shell is a wave of stars still settling, hundreds of millions of years after the meal.'
+    },
+    {
+      id: 'antennae', name: 'ANTENNAE GALAXIES · NGC 4038/4039', type: 'galaxy',
+      class: 'Colliding spiral pair', arms: 2,
+      x: 1750, y: -250, radius: 90,
+      palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
+      spinSpeed: 0.00013,
+      distance: '~45 million ly',
+      size: 'tidal tails span ~500,000 ly',
+      desc: 'Two spiral galaxies caught mid-collision, flung apart into long curving tails of stars that gave them their name. Already the crash has triggered a firestorm of star formation — over a thousand young star clusters have ignited along the wreckage. In a few hundred million years, they will settle into one elliptical galaxy — a preview of the Milky Way and Andromeda\'s own distant future.'
+    },
+    {
+      id: 'ngc1569', name: 'NGC 1569', type: 'galaxy',
+      class: 'Dwarf starburst galaxy · Irr',
+      x: -1600, y: -700, radius: 55, arms: 2,
+      palette: ['--cyber-pink', '--golden-yellow', '--star-white'],
+      spinSpeed: 0.00018,
+      distance: '~11 million ly',
+      size: '~10,000 ly across',
+      desc: 'A small galaxy caught in an extraordinary burst of star birth, forming stars roughly 100 times faster than the Milky Way for its size. It hosts several "super star clusters" — clusters so dense and massive they resemble young globular clusters in the making.'
+    },
+    {
+      id: 'ngc1068', name: 'SEYFERT GALAXY · M77', type: 'galaxy',
+      class: 'Seyfert II · SA(rs)b', arms: 3,
+      x: -100, y: 1550, radius: 95,
+      palette: ['--terminal-green', '--star-white', '--neon-cyan'],
+      spinSpeed: 0.00008,
+      distance: '~47 million ly',
+      size: '~170,000 ly across',
+      desc: 'One of the nearest and best-studied active galaxies, its brilliant core outshining the combined light of billions of ordinary stars. It was one of six unusual galaxies catalogued by Carl Seyfert in 1943, giving this entire class of active galaxy its name. Zoom in to visit the black hole responsible.'
+    },
+    {
+      id: 'holm15a', name: 'HOLM 15A', type: 'galaxy',
+      class: 'Type-cD galaxy', elliptical: true,
+      x: -50, y: -1650, radius: 110,
+      palette: ['--void-blue', '--star-white', '--neon-purple'],
+      spinSpeed: 0.00003,
+      distance: '~700 million ly',
+      size: 'core alone ~20,000 ly wide',
+      desc: 'The central galaxy of the Abell 85 cluster, and record-holder for the largest known galactic core — a diffuse haze of ancient stars so vast that most other giant ellipticals could fit entirely inside it. Zoom in to visit the black hole thought to have grown it.'
+    },
+
+    /* ══ STAR CLUSTERS (gravitationally bound groups of stars) ══ */
+    {
+      id: 'pleiades', name: 'PLEIADES · M45', type: 'cluster',
+      class: 'Open cluster · "Seven Sisters"',
+      parent: 'milky-way', local: { r: 100, a: 0.6 }, radius: 18,
+      nebulosity: true,
+      palette: ['--ice-blue', '--star-white', '--neon-cyan'],
+      spinSpeed: 0.0002,
+      distance: '~444 ly',
+      size: '~8 ly across (core)',
+      desc: 'A loose knot of hot young stars still wrapped in wisps of the blue reflection nebula they are passing through — visible to the naked eye as a tiny dipper-shaped smudge, and one of the closest, brightest star clusters in the sky.'
+    },
+    {
+      id: 'omega-centauri', name: 'OMEGA CENTAURI', type: 'cluster',
+      class: 'Globular cluster',
+      parent: 'milky-way', local: { r: 135, a: 4.7 }, radius: 16,
+      globular: true,
+      palette: ['--golden-yellow', '--star-white', '--terminal-green'],
+      spinSpeed: 0.0001,
+      distance: '~17,000 ly',
+      size: '~150 ly across',
+      desc: 'The largest and brightest globular cluster in the Milky Way — a dense ball of roughly ten million stars, some of them possibly the stripped core of a small galaxy the Milky Way consumed long ago.'
+    },
 
     /* ══ SUPERMASSIVE STARS (inside their host galaxies) ══ */
     {
@@ -387,6 +481,36 @@ const galaxiesData = {
       distance: '~55 million ly',
       size: '~4.5 billion solar masses',
       desc: 'A black hole roughly a thousand times heavier than the Milky Way\'s own, anchoring one of the largest known galaxies in the nearby universe — extreme even by the standards of giant ellipticals.'
+    },
+    {
+      id: 'cygnus-a-star', name: 'CYGNUS A*', type: 'blackhole',
+      class: 'Supermassive black hole · radio jet engine',
+      parent: 'cygnus-a', local: { r: 0, a: 0 }, radius: 20,
+      palette: ['--cyber-pink', '--void-blue'],
+      spinSpeed: 0.0006,
+      distance: '~760 million ly',
+      size: '~2.5 billion solar masses',
+      desc: 'The engine behind Cygnus A\'s enormous radio jets. In 2016, X-ray observations turned up a surprising second, fainter source right beside it — a possible companion black hole, left over from a galaxy merger, still spiraling in.'
+    },
+    {
+      id: 'ngc1068-star', name: 'M77*', type: 'blackhole',
+      class: 'Supermassive black hole · active nucleus',
+      parent: 'ngc1068', local: { r: 0, a: 0 }, radius: 12,
+      palette: ['--terminal-green', '--star-white'],
+      spinSpeed: 0.0009,
+      distance: '~47 million ly',
+      size: '~15 million solar masses',
+      desc: 'A comparatively modest black hole as supermassive black holes go, but an unusually hungry one — its accretion disk is so bright and so thickly wrapped in dust that it defines an entire category of active galaxy: the Seyfert.'
+    },
+    {
+      id: 'holm15a-star', name: 'HOLM 15A*', type: 'blackhole',
+      class: 'Ultramassive black hole',
+      parent: 'holm15a', local: { r: 0, a: 0 }, radius: 50,
+      palette: ['--void-blue', '--neon-purple'],
+      spinSpeed: 0.0004,
+      distance: '~700 million ly',
+      size: '~40 billion solar masses',
+      desc: 'One of the most massive black holes ever weighed, and likely the reason its host galaxy\'s core is so enormous and diffuse — repeated galaxy mergers are thought to have let this black hole grow to record size while scouring the stars out of the center it now anchors.'
     },
     {
       id: 'ton-618', name: 'TON 618', type: 'blackhole',

@@ -111,6 +111,7 @@ const objects = galaxiesData.objects.map((data) => {
   if (data.type === 'blackhole') state.disk = makeDiskParticles(data);
   if (data.type === 'system') state.planets = makePlanets(data);
   if (data.type === 'nebula') state.puffs = makeNebulaPuffs(data);
+  if (data.type === 'cluster') state.particles = makeClusterParticles(data);
   return state;
 });
 
@@ -124,7 +125,7 @@ const pickOrder = [...objects].sort((a, b) => a.data.radius - b.data.radius);
 
 /* Objects grouped by type once, so the render loop can draw each layer
    with a plain `for` — no per-frame filtering, lower branch count. */
-const byType = { void: [], galaxy: [], nebula: [], star: [], neutron: [], system: [], blackhole: [] };
+const byType = { void: [], galaxy: [], nebula: [], cluster: [], star: [], neutron: [], system: [], blackhole: [] };
 for (const o of objects) byType[o.data.type].push(o);
 
 /* Interior objects orbit with their host galaxy's spin */
@@ -230,6 +231,25 @@ function makeNebulaPuffs(data) {
   return pts;
 }
 
+/* Globular clusters pack hundreds of stars into a tight, steeply
+   concentrated ball; open clusters are a loose, sparse handful of
+   individually bright stars. */
+function makeClusterParticles(data) {
+  const pts = [];
+  const count = data.globular ? 110 : 11;
+  const concentration = data.globular ? 2.2 : 1;
+  for (let i = 0; i < count; i++) {
+    pts.push({
+      r: data.radius * Math.pow(rnd(), concentration),
+      a: rnd() * Math.PI * 2,
+      size: data.globular ? rnd() * 1.2 + 0.5 : rnd() * 1.8 + 1.4,
+      ci: pickColorIndex(),
+      alpha: data.globular ? rnd() * 0.5 + 0.3 : rnd() * 0.3 + 0.6,
+    });
+  }
+  return pts;
+}
+
 /* ── Renderers ── */
 function drawGalaxy(o, t) {
   const { data, colors } = o;
@@ -258,6 +278,18 @@ function drawGalaxy(o, t) {
     ctx.fillStyle = colors[p.ci] || colors[0];
     const s = Math.max(p.size * Math.min(z * 2, 1.6), 0.6);
     ctx.fillRect(px, py, s, s);
+  }
+
+  // shell galaxies: faint concentric rings of stars, frozen mid-ripple
+  if (data.shell) {
+    ctx.strokeStyle = colors[1] || colors[0];
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 4; i++) {
+      ctx.globalAlpha = 0.16;
+      ctx.beginPath();
+      ctx.arc(sc.x, sc.y, data.radius * (0.35 + i * 0.16) * z, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   }
   ctx.globalAlpha = 1;
 }
@@ -290,6 +322,53 @@ function drawNebula(o, t) {
     ctx.fill();
   }
   ctx.globalCompositeOperation = 'source-over';
+  ctx.globalAlpha = 1;
+}
+
+/* Open cluster (sparse, individually bright stars, optionally wrapped
+   in a faint reflection-nebula haze) or globular cluster (hundreds of
+   faint stars packed into a steep, symmetric ball with a soft core glow). */
+function drawCluster(o, t) {
+  const { data, colors } = o;
+  const va = childAlpha(o);
+  if (va < 0.02) return;
+  const wp = worldPos(o);
+  const sc = worldToScreen(wp.x, wp.y);
+  const z = camera.zoom;
+  const rot = o.angle + mapRotation;
+
+  if (data.nebulosity) {
+    const haze = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, Math.max(data.radius * z, 6));
+    haze.addColorStop(0, colors[0]);
+    haze.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.22 * va;
+    ctx.fillStyle = haze;
+    ctx.beginPath();
+    ctx.arc(sc.x, sc.y, Math.max(data.radius * z, 6), 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  if (data.globular) {
+    const coreR = Math.max(data.radius * 0.4 * z, 3);
+    const g = ctx.createRadialGradient(sc.x, sc.y, 0, sc.x, sc.y, coreR);
+    g.addColorStop(0, COLOR.starWhite);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.6 * va;
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(sc.x, sc.y, coreR, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  for (const p of o.particles) {
+    const a = p.a + rot;
+    const px = sc.x + Math.cos(a) * p.r * z;
+    const py = sc.y + Math.sin(a) * p.r * z;
+    ctx.globalAlpha = p.alpha * va;
+    ctx.fillStyle = colors[p.ci] || colors[0];
+    const s = Math.max(p.size * Math.min(z * 2, 1.6), 0.6);
+    ctx.fillRect(px, py, s, s);
+  }
   ctx.globalAlpha = 1;
 }
 
@@ -724,6 +803,7 @@ const hudTarget = document.getElementById('hud-target');
 const TYPE_LABEL = {
   galaxy: 'GALAXY',
   nebula: 'NEBULA',
+  cluster: 'STAR CLUSTER',
   star: 'SUPERMASSIVE STAR',
   neutron: 'NEUTRON STAR',
   system: 'STAR SYSTEM',
@@ -880,6 +960,7 @@ function renderScene(t) {
   for (const o of byType.void) drawVoid(o, t);
   for (const o of byType.galaxy) drawGalaxy(o, t);
   for (const o of byType.nebula) drawNebula(o, t);
+  for (const o of byType.cluster) drawCluster(o, t);
   for (const o of byType.star) drawStarObj(o, t);
   for (const o of byType.neutron) drawNeutronStar(o, t);
   for (const o of byType.system) drawSolarSystem(o, t);
