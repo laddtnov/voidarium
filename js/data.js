@@ -273,7 +273,7 @@ const galaxiesData = {
     {
       id: 'pleiades', name: 'PLEIADES · M45', type: 'cluster',
       class: 'Open cluster · "Seven Sisters"',
-      parent: 'milky-way', local: { r: 100, a: 4.6 }, radius: 18,
+      parent: 'milky-way', local: { r: 100, a: 0.6 }, radius: 18,
       nebulosity: true,
       palette: ['--ice-blue', '--star-white', '--neon-cyan'],
       spinSpeed: 0.0002,
@@ -284,7 +284,7 @@ const galaxiesData = {
     {
       id: 'omega-centauri', name: 'OMEGA CENTAURI', type: 'cluster',
       class: 'Globular cluster',
-      parent: 'milky-way', local: { r: 60, a: 5.0 }, radius: 16,
+      parent: 'milky-way', local: { r: 135, a: 4.7 }, radius: 16,
       globular: true,
       palette: ['--golden-yellow', '--star-white', '--terminal-green'],
       spinSpeed: 0.0001,
