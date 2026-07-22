@@ -21,7 +21,7 @@ const galaxiesData = {
     {
       id: 'milky-way', name: 'MILKY WAY', type: 'galaxy',
       class: 'Barred spiral · SBbc',
-      x: 0, y: 0, radius: 140, arms: 4,
+      x: 0, y: 0, radius: 225, arms: 4,
       palette: ['--neon-cyan', '--star-white', '--neon-purple'],
       spinSpeed: 0.00010,
       distance: '0 ly — you are here',
@@ -273,9 +273,9 @@ const galaxiesData = {
     {
       id: 'pleiades', name: 'PLEIADES · M45', type: 'cluster',
       class: 'Open cluster · "Seven Sisters"',
-      parent: 'milky-way', local: { r: 100, a: 0.6 }, radius: 18,
+      parent: 'milky-way', local: { r: 150, a: 0.6 }, radius: 18,
       nebulosity: true,
-      palette: ['--ice-blue', '--star-white', '--neon-cyan'],
+      palette: ['--ice-blue', '--neon-cyan', '--star-white'],
       spinSpeed: 0.0002,
       distance: '~444 ly',
       size: '~8 ly across (core)',
@@ -284,7 +284,7 @@ const galaxiesData = {
     {
       id: 'omega-centauri', name: 'OMEGA CENTAURI', type: 'cluster',
       class: 'Globular cluster',
-      parent: 'milky-way', local: { r: 135, a: 4.7 }, radius: 16,
+      parent: 'milky-way', local: { r: 203, a: 4.7 }, radius: 16,
       globular: true,
       palette: ['--golden-yellow', '--star-white', '--terminal-green'],
       spinSpeed: 0.0001,
@@ -297,7 +297,7 @@ const galaxiesData = {
     {
       id: 'uy-scuti', name: 'UY SCUTI', type: 'star',
       class: 'Red supergiant · M4Ia',
-      parent: 'milky-way', local: { r: 72, a: 1.1 }, radius: 12,
+      parent: 'milky-way', local: { r: 108, a: 1.1 }, radius: 12,
       palette: ['--star-red', '--golden-yellow'],
       spinSpeed: 0.0004,
       distance: '~5,900 ly',
@@ -307,7 +307,7 @@ const galaxiesData = {
     {
       id: 'stephenson-2-18', name: 'STEPHENSON 2-18', type: 'star',
       class: 'Red supergiant · M6',
-      parent: 'milky-way', local: { r: 120, a: 5.6 }, radius: 13,
+      parent: 'milky-way', local: { r: 180, a: 5.6 }, radius: 13,
       palette: ['--star-red', '--cyber-pink'],
       spinSpeed: 0.0003,
       distance: '~18,900 ly',
@@ -317,7 +317,7 @@ const galaxiesData = {
     {
       id: 'betelgeuse', name: 'BETELGEUSE', type: 'star',
       class: 'Red supergiant · M1-M2Ia',
-      parent: 'milky-way', local: { r: 112, a: 5.3 }, radius: 10,
+      parent: 'milky-way', local: { r: 168, a: 5.3 }, radius: 10,
       palette: ['--star-red', '--golden-yellow'],
       spinSpeed: 0.0005,
       distance: '~550 ly',
@@ -327,7 +327,7 @@ const galaxiesData = {
     {
       id: 'eta-carinae', name: 'ETA CARINAE', type: 'star',
       class: 'Luminous blue variable binary',
-      parent: 'milky-way', local: { r: 55, a: 2.5 }, radius: 10,
+      parent: 'milky-way', local: { r: 83, a: 2.5 }, radius: 10,
       palette: ['--neon-cyan', '--star-white'],
       spinSpeed: 0.0006,
       distance: '~7,500 ly',
@@ -343,6 +343,16 @@ const galaxiesData = {
       distance: '~163,000 ly (LMC)',
       size: '~196 solar masses',
       desc: 'The most massive and one of the most luminous stars known — nearly 5 million times brighter than the Sun. It burns so fiercely that it sheds an Earth’s mass of material every month in a ferocious stellar wind.'
+    },
+    {
+      id: 'sirius', name: 'SIRIUS', type: 'star',
+      class: 'A-type main sequence + white dwarf binary',
+      parent: 'milky-way', local: { r: 205, a: 6.24 }, radius: 11,
+      palette: ['--star-white', '--ice-blue'],
+      spinSpeed: 0.0007,
+      distance: '~8.6 ly',
+      size: '~1.7 solar masses (Sirius A)',
+      desc: 'The brightest star in Earth\'s night sky — not because it\'s especially powerful, but because it\'s one of our nearest neighbors. It has a hidden companion, Sirius B: the first white dwarf ever discovered, a star\'s entire mass crushed into a sphere the size of Earth, the two locked in a 50-year orbital dance.'
     },
 
     /* ══ NEUTRON STARS (city-sized cores left behind by supernovae) ══ */
@@ -381,7 +391,7 @@ const galaxiesData = {
     {
       id: 'solar-system', name: 'SOLAR SYSTEM', type: 'system',
       class: 'Star system · G2V + 8 planets',
-      parent: 'milky-way', local: { r: 85, a: 3.7 }, radius: 14,
+      parent: 'milky-way', local: { r: 128, a: 3.7 }, radius: 14,
       palette: ['--golden-yellow', '--star-white', '--neon-cyan'],
       spinSpeed: 0.0003,
       distance: '0 ly — home',
@@ -393,7 +403,7 @@ const galaxiesData = {
     {
       id: 'orion-nebula', name: 'ORION NEBULA · M42', type: 'nebula',
       class: 'Diffuse emission nebula · stellar nursery',
-      parent: 'milky-way', local: { r: 95, a: 2.2 }, radius: 26,
+      parent: 'milky-way', local: { r: 143, a: 2.2 }, radius: 26,
       palette: ['--cyber-pink', '--neon-purple', '--star-white'],
       spinSpeed: 0.00006,
       distance: '~1,344 ly',
@@ -403,7 +413,7 @@ const galaxiesData = {
     {
       id: 'crab-nebula', name: 'CRAB NEBULA · M1', type: 'nebula',
       class: 'Supernova remnant',
-      parent: 'milky-way', local: { r: 45, a: 0.4 }, radius: 18,
+      parent: 'milky-way', local: { r: 68, a: 0.4 }, radius: 18,
       palette: ['--neon-cyan', '--neon-purple', '--star-white'],
       spinSpeed: 0.00007,
       distance: '~6,500 ly',
@@ -413,7 +423,7 @@ const galaxiesData = {
     {
       id: 'helix-nebula', name: 'HELIX NEBULA · NGC 7293', type: 'nebula',
       class: 'Planetary nebula · "Eye of God"',
-      parent: 'milky-way', local: { r: 130, a: 1.0 }, radius: 20,
+      parent: 'milky-way', local: { r: 195, a: 1.0 }, radius: 20,
       palette: ['--terminal-green', '--neon-cyan', '--star-white'],
       spinSpeed: 0.00005,
       distance: '~650 ly',
