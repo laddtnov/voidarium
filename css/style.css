@@ -22,7 +22,7 @@ html, body {
 
 /* ── HUD corners ── */
 .hud { position: fixed; z-index: 10; pointer-events: none; }
-.hud button { pointer-events: auto; }
+.hud button, .hud a { pointer-events: auto; }
 
 .hud-top-left { top: 20px; left: 24px; }
 .hud-title {
