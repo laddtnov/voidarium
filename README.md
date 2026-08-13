@@ -5,6 +5,7 @@
 Voidarium is a zero-dependency universe map rendered entirely on a single `<canvas>` in vanilla HTML/CSS/JavaScript. The whole universe slowly rotates around its own axis while every spiral galaxy spins independently. Click any object to fly there with a smooth camera flight and read its story on a holographic terminal card.
 
 ![status](https://img.shields.io/badge/status-exploring-00f0ff) ![stack](https://img.shields.io/badge/stack-vanilla_JS_%2B_canvas-ff2fb9) ![deps](https://img.shields.io/badge/dependencies-none-52ff9a)
+[![Buy Me a Coffee](https://img.shields.io/badge/support-buy_me_a_coffee-ffc857)](https://buymeacoffee.com/laddtnov)
 
 ![Voidarium overview — the full spinning map](assets/screenshots/overview.png)
 

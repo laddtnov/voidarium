@@ -172,6 +172,20 @@ html, body {
   text-shadow: 0 0 6px var(--neon-cyan);
 }
 
+a.glow-btn {
+  display: inline-block;
+  text-decoration: none;
+}
+.support-btn {
+  color: var(--golden-yellow);
+  border-color: rgba(255, 200, 87, 0.45);
+}
+.support-btn:hover {
+  box-shadow: 0 0 8px rgba(255, 200, 87, 0.7), 0 0 24px rgba(255, 200, 87, 0.35);
+  background: rgba(255, 200, 87, 0.12);
+  text-shadow: 0 0 6px var(--golden-yellow);
+}
+
 /* ── Destinations nav ── */
 .destinations {
   position: fixed;
