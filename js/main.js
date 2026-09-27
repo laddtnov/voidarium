@@ -798,6 +798,7 @@ const panelClass = document.getElementById('panel-class');
 const panelDistance = document.getElementById('panel-distance');
 const panelSize = document.getElementById('panel-size');
 const panelDesc = document.getElementById('panel-desc');
+const panelRelated = document.getElementById('panel-related');
 const hudCoords = document.getElementById('hud-coords');
 const hudZoom = document.getElementById('hud-zoom');
 const hudTarget = document.getElementById('hud-target');
@@ -833,6 +834,19 @@ function openPanel(o) {
     panelDesc.textContent = d.desc.slice(0, ++i);
     if (i >= d.desc.length) clearInterval(typeTimer);
   }, 11);
+
+  // related chips: a galaxy shows its residents, a resident shows its siblings
+  const related = o.parent
+    ? objects.filter((x) => x.parent === o.parent && x !== o)
+    : objects.filter((x) => x.parent === o);
+  panelRelated.innerHTML = '';
+  for (const r of related) {
+    const chip = document.createElement('button');
+    chip.className = 'panel-chip';
+    chip.textContent = r.data.name;
+    chip.addEventListener('click', () => travelTo(r));
+    panelRelated.appendChild(chip);
+  }
 }
 
 function closePanel() {

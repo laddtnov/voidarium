@@ -292,6 +292,17 @@ const galaxiesData = {
       size: '~150 ly across',
       desc: 'The largest and brightest globular cluster in the Milky Way — a dense ball of roughly ten million stars, some of them possibly the stripped core of a small galaxy the Milky Way consumed long ago.'
     },
+    {
+      id: 'ngc1569-a', name: 'NGC 1569-A', type: 'cluster',
+      class: 'Super star cluster',
+      parent: 'ngc1569', local: { r: 25, a: 1.5 }, radius: 10,
+      globular: true,
+      palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
+      spinSpeed: 0.00015,
+      distance: '~11 million ly',
+      size: '~13 ly across',
+      desc: 'One of two super star clusters igniting inside NGC 1569\'s starburst — a few million years old and packed with thousands of massive stars, so dense some astronomers suspect it hides an intermediate-mass black hole at its heart.'
+    },
 
     /* ══ SUPERMASSIVE STARS (inside their host galaxies) ══ */
     {
@@ -433,12 +444,22 @@ const galaxiesData = {
     {
       id: 'tarantula-nebula', name: 'TARANTULA NEBULA · 30 DORADUS', type: 'nebula',
       class: 'Giant emission nebula · starburst region',
-      parent: 'lmc', local: { r: 48, a: 3.5 }, radius: 30,
+      parent: 'lmc', local: { r: 36, a: 3.5 }, radius: 30,
       palette: ['--cyber-pink', '--golden-yellow', '--star-white'],
       spinSpeed: 0.00008,
       distance: '~163,000 ly (LMC)',
       size: '~1,800 ly across',
       desc: 'The most violent star-forming region in the Local Group — so luminous that, at the distance of the Orion Nebula, it would cast shadows on Earth. It cradles the super star cluster that gave birth to R136a1, the most massive star known.'
+    },
+    {
+      id: 'ngc604', name: 'NGC 604', type: 'nebula',
+      class: 'Giant emission nebula · HII region',
+      parent: 'triangulum', local: { r: 55, a: 1.2 }, radius: 24,
+      palette: ['--cyber-pink', '--neon-cyan', '--star-white'],
+      spinSpeed: 0.00006,
+      distance: '~2.73 million ly',
+      size: '~1,500 ly across',
+      desc: 'One of the largest known star-forming regions in the Local Group — a sibling to the Orion Nebula, but roughly 100 times bigger. Over 200 hot, massive young stars light up the surrounding gas from within, only about 3.7 million years old.'
     },
 
     /* ══ BLACK HOLES ══ */
@@ -521,6 +542,46 @@ const galaxiesData = {
       distance: '~700 million ly',
       size: '~40 billion solar masses',
       desc: 'One of the most massive black holes ever weighed, and likely the reason its host galaxy\'s core is so enormous and diffuse — repeated galaxy mergers are thought to have let this black hole grow to record size while scouring the stars out of the center it now anchors.'
+    },
+    {
+      id: 'centaurus-a-star', name: 'CENTAURUS A*', type: 'blackhole',
+      class: 'Supermassive black hole',
+      parent: 'centaurus-a', local: { r: 0, a: 0 }, radius: 18,
+      palette: ['--golden-yellow', '--star-white'],
+      spinSpeed: 0.0006,
+      distance: '~12 million ly',
+      size: '~55 million solar masses',
+      desc: 'The engine behind Centaurus A\'s famous dust lane and radio jets — one of the closest active black holes to Earth, making it a favorite target for studying how a supermassive black hole feeds and blasts energy back into its galaxy.'
+    },
+    {
+      id: 'm101-ulx1', name: 'M101 ULX-1', type: 'blackhole',
+      class: 'Ultraluminous X-ray source · stellar black hole',
+      parent: 'pinwheel', local: { r: 70, a: 4.0 }, radius: 11,
+      palette: ['--neon-cyan', '--star-white'],
+      spinSpeed: 0.0007,
+      distance: '~21 million ly',
+      size: '~5 solar masses',
+      desc: 'A stellar-mass black hole feeding on a Wolf-Rayet companion star, precisely weighed at about five Suns — one of the few black holes outside the Milky Way with a directly measured mass, shining brighter in X-rays than almost any other point source in its galaxy.'
+    },
+    {
+      id: 'm51-uls1', name: 'M51-ULS-1', type: 'neutron',
+      class: 'X-ray binary · candidate exoplanet host',
+      parent: 'whirlpool', local: { r: 60, a: 3.0 }, radius: 10,
+      palette: ['--terminal-green', '--neon-cyan'],
+      spinSpeed: 0.0008,
+      distance: '~23 million ly',
+      size: 'compact object + blue supergiant companion',
+      desc: 'An eclipsing X-ray binary — a neutron star or small black hole devouring a giant companion star. In 2021, a brief dip in its X-rays was proposed as the first candidate planet ever spotted in another galaxy, tentatively Saturn-sized. Still unconfirmed, but a tantalizing first.'
+    },
+    {
+      id: 'cartwheel-ulx', name: 'CARTWHEEL ULX', type: 'blackhole',
+      class: 'Ultraluminous X-ray source',
+      parent: 'cartwheel', local: { r: 65, a: 2.0 }, radius: 12,
+      palette: ['--cyber-pink', '--star-white'],
+      spinSpeed: 0.0007,
+      distance: '~500 million ly',
+      size: 'tens of solar masses',
+      desc: 'One of several black holes lit up by the same collision that built the Cartwheel\'s ring — gorging on gas stirred loose by the impact 200 million years ago, bright enough in X-rays to be picked out from half a billion light-years away.'
     },
     {
       id: 'ton-618', name: 'TON 618', type: 'blackhole',
