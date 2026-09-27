@@ -900,6 +900,25 @@ document.getElementById('dest-toggle').addEventListener('click', () => {
   for (const o of objects) {
     if (o.data.type === 'void') addItem(o, false);
   }
+
+  // live filter: hide non-matching items, hide a group header only when
+  // every item under it (up to the next header) is hidden too
+  const rows = [...destList.children];
+  document.getElementById('dest-search').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    let groupHasMatch = false;
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const row = rows[i];
+      if (row.className === 'dest-group') {
+        row.style.display = groupHasMatch ? '' : 'none';
+        groupHasMatch = false;
+      } else {
+        const match = !q || row.textContent.toLowerCase().includes(q);
+        row.style.display = match ? '' : 'none';
+        if (match) groupHasMatch = true;
+      }
+    }
+  });
 }
 
 /* ── Main loop ──
