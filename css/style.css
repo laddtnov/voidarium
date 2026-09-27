@@ -379,6 +379,28 @@ a.glow-btn {
 }
 @keyframes caret { 50% { opacity: 0; } }
 
+.panel-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.panel-chip {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding: 5px 9px;
+  color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+.panel-chip:hover {
+  box-shadow: var(--glow-cyan);
+  background: rgba(0, 240, 255, 0.15);
+}
+
 /* ── Atmosphere overlays ── */
 .crt-overlay {
   position: fixed; inset: 0;
