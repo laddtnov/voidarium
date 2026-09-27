@@ -194,6 +194,13 @@ a.glow-btn {
   width: 230px;
 }
 .dest-toggle { width: 100%; text-align: left; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
 .dest-search {
   display: none;
   width: 100%;
