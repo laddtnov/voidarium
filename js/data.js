@@ -269,6 +269,37 @@ const galaxiesData = {
       desc: 'The central galaxy of the Abell 85 cluster, and record-holder for the largest known galactic core — a diffuse haze of ancient stars so vast that most other giant ellipticals could fit entirely inside it. Zoom in to visit the black hole thought to have grown it.'
     },
 
+    {
+      id: 'smc', name: 'SMALL MAGELLANIC CLOUD', type: 'galaxy',
+      class: 'Dwarf irregular · SB(s)m pec',
+      x: 470, y: 400, radius: 55, arms: 2,
+      palette: ['--ice-blue', '--star-white', '--neon-purple'],
+      spinSpeed: 0.00012,
+      distance: '~200,000 ly',
+      size: '~18,900 ly across',
+      desc: 'The Milky Way’s second-brightest satellite galaxy, a ragged dwarf being stretched by the gravity of its larger sibling, the LMC, and by the Milky Way itself. Its gas is poor in heavy elements, making it a nearby stand-in for star formation in the early universe.'
+    },
+    {
+      id: 'm32', name: 'MESSIER 32', type: 'galaxy',
+      class: 'Compact elliptical · cE2', elliptical: true,
+      x: 820, y: -300, radius: 40,
+      palette: ['--golden-yellow', '--star-red', '--star-white'],
+      spinSpeed: 0.00012,
+      distance: '~2.5 million ly',
+      size: '~6,500 ly across',
+      desc: 'A tiny, extraordinarily dense satellite of Andromeda — packed with stars far more tightly than the Milky Way’s neighborhood. Many astronomers think it is the stripped core of a much larger galaxy that Andromeda tore apart long ago.'
+    },
+    {
+      id: 'hoags-object', name: 'HOAG’S OBJECT', type: 'galaxy',
+      class: 'Ring galaxy · (R) pec', ring: true,
+      x: -700, y: -150, radius: 75,
+      palette: ['--neon-cyan', '--golden-yellow', '--star-white'],
+      spinSpeed: 0.00011,
+      distance: '~600 million ly',
+      size: '~120,000 ly across',
+      desc: 'A near-perfect ring of young blue stars wrapped around a smooth yellow core, separated by a gap of dark space. Through that gap Hubble spotted a second, far more distant ring galaxy. How Hoag’s Object formed is still debated.'
+    },
+
     /* ══ STAR CLUSTERS (gravitationally bound groups of stars) ══ */
     {
       id: 'pleiades', name: 'PLEIADES · M45', type: 'cluster',
@@ -304,6 +335,28 @@ const galaxiesData = {
       desc: 'One of two super star clusters igniting inside NGC 1569\'s starburst — a few million years old and packed with thousands of massive stars, so dense some astronomers suspect it hides an intermediate-mass black hole at its heart.'
     },
 
+    {
+      id: 'mayall-ii', name: 'MAYALL II · G1', type: 'cluster',
+      class: 'Globular cluster · black hole candidate',
+      parent: 'andromeda', local: { r: 110, a: 1.0 }, radius: 11,
+      globular: true,
+      palette: ['--golden-yellow', '--star-white', '--star-red'],
+      spinSpeed: 0.00015,
+      distance: '~2.5 million ly',
+      size: '~7 million solar masses',
+      desc: 'The most massive globular cluster in the Local Group, heavier than Omega Centauri, orbiting far out in Andromeda’s halo. X-ray and stellar-motion hints of an intermediate-mass black hole at its core are still debated.'
+    },
+    {
+      id: 'ngc3923-gcs', name: 'NGC 3923 GLOBULAR SYSTEM', type: 'cluster',
+      class: 'Globular cluster system',
+      parent: 'ngc3923', local: { r: 45, a: 2.0 }, radius: 12,
+      globular: true,
+      palette: ['--golden-yellow', '--star-white', '--star-red'],
+      spinSpeed: 0.00012,
+      distance: '~65 million ly',
+      size: 'well over a thousand clusters',
+      desc: 'A swarm of ancient globular clusters orbiting the shell galaxy — relics of its violent merger history. The same mergers likely scattered the 20+ faint stellar shells that give NGC 3923 its onion-layer look.'
+    },
     /* ══ SUPERMASSIVE STARS (inside their host galaxies) ══ */
     {
       id: 'uy-scuti', name: 'UY SCUTI', type: 'star',
@@ -364,6 +417,17 @@ const galaxiesData = {
       distance: '~8.6 ly',
       size: '~1.7 solar masses (Sirius A)',
       desc: 'The brightest star in Earth\'s night sky — not because it\'s especially powerful, but because it\'s one of our nearest neighbors. It has a hidden companion, Sirius B: the first white dwarf ever discovered, a star\'s entire mass crushed into a sphere the size of Earth, the two locked in a 50-year orbital dance.'
+    },
+
+    {
+      id: 'woh-g64', name: 'WOH G64', type: 'star',
+      class: 'Red supergiant · one of the largest known stars',
+      parent: 'lmc', local: { r: 55, a: 2.2 }, radius: 9,
+      palette: ['--star-red', '--golden-yellow'],
+      spinSpeed: 0.0004,
+      distance: '~160,000 ly',
+      size: '~1,500–2,000 solar radii',
+      desc: 'Imaged by the Very Large Telescope Interferometer in 2024 — the first close-up portrait of a star outside the Milky Way, wrapped in an egg-shaped cocoon of its own ejected dust. It is shedding mass fast and appears to be changing its look, a star in its final act.'
     },
 
     /* ══ NEUTRON STARS (city-sized cores left behind by supernovae) ══ */
@@ -460,6 +524,47 @@ const galaxiesData = {
       distance: '~2.73 million ly',
       size: '~1,500 ly across',
       desc: 'One of the largest known star-forming regions in the Local Group — a sibling to the Orion Nebula, but roughly 100 times bigger. Over 200 hot, massive young stars light up the surrounding gas from within, only about 3.7 million years old.'
+    },
+
+    {
+      id: 'ngc346', name: 'NGC 346', type: 'nebula',
+      class: 'Emission nebula · star-forming region',
+      parent: 'smc', local: { r: 20, a: 1.0 }, radius: 14,
+      palette: ['--cyber-pink', '--neon-purple', '--star-white'],
+      spinSpeed: 0.00007,
+      distance: '~200,000 ly',
+      size: '~200 ly across',
+      desc: 'The brightest star-forming region in the Small Magellanic Cloud. Hubble and Webb found planet-forming disks around its young stars lasting unexpectedly long, even in gas starved of heavy elements — much like the early universe.'
+    },
+    {
+      id: 'sn1987a', name: 'SN 1987A', type: 'nebula',
+      class: 'Supernova remnant',
+      parent: 'lmc', local: { r: 50, a: 5.5 }, radius: 9,
+      palette: ['--cyber-pink', '--golden-yellow', '--star-white'],
+      spinSpeed: 0.0001,
+      distance: '~168,000 ly',
+      size: '~1.5 ly across (inner ring)',
+      desc: 'The brightest supernova seen from Earth since 1604. Neutrinos arrived hours before the light, and today the blast wave lights up a glowing ring of gas that Hubble and Webb watch brighten year by year. Webb has found signs of a neutron star hiding inside.'
+    },
+    {
+      id: 's-andromedae', name: 'S ANDROMEDAE · SN 1885A', type: 'nebula',
+      class: 'Supernova remnant · first extragalactic supernova',
+      parent: 'andromeda', local: { r: 40, a: 4.0 }, radius: 11,
+      palette: ['--golden-yellow', '--cyber-pink', '--star-white'],
+      spinSpeed: 0.00008,
+      distance: '~2.5 million ly',
+      size: 'peaked near magnitude 6 in 1885',
+      desc: 'The first supernova ever recorded in another galaxy. In 1885 it flared near Andromeda’s core, just visible to the naked eye, years before anyone knew Andromeda was a galaxy. Hubble later found its faint, still-expanding debris.'
+    },
+    {
+      id: 'antennae-overlap', name: 'ANTENNAE OVERLAP REGION', type: 'nebula',
+      class: 'Starburst region · merger overlap',
+      parent: 'antennae', local: { r: 20, a: 0.5 }, radius: 26,
+      palette: ['--cyber-pink', '--neon-cyan', '--star-white'],
+      spinSpeed: 0.00009,
+      distance: '~45 million ly',
+      size: 'spans thousands of light-years',
+      desc: 'Where the two colliding disks overlap, compressed gas collapses into hundreds of young super star clusters — one of the most intense star-formation sites close enough to study in detail. Many of these clusters will not survive long.'
     },
 
     /* ══ BLACK HOLES ══ */
@@ -603,6 +708,47 @@ const galaxiesData = {
       distance: '~5.8 billion ly',
       size: '~100 billion solar masses',
       desc: 'The central engine of the Phoenix Cluster and possibly the most massive black hole known — estimates reach 100 billion solar masses. It floods its cluster with so much energy that stars form around it at 740 Suns per year.'
+    },
+
+    {
+      id: 'ngc1300-star', name: 'NGC 1300*', type: 'blackhole',
+      class: 'Supermassive black hole',
+      parent: 'ngc1300', local: { r: 0, a: 0 }, radius: 12,
+      palette: ['--golden-yellow', '--cyber-pink'],
+      spinSpeed: 0.0006,
+      distance: '~61 million ly',
+      size: '~70 million solar masses (estimated)',
+      desc: 'A quiet black hole at the center of one of the sharpest barred spirals known. Its mass is inferred from the motion of stars around it, not imaged — a reminder that most black holes are weighed, not seen.'
+    },
+    {
+      id: 'ngc3923-star', name: 'NGC 3923*', type: 'blackhole',
+      class: 'Supermassive black hole · inferred',
+      parent: 'ngc3923', local: { r: 0, a: 0 }, radius: 15,
+      palette: ['--golden-yellow', '--neon-purple'],
+      spinSpeed: 0.0006,
+      distance: '~65 million ly',
+      size: 'billions of solar masses (inferred)',
+      desc: 'Giant ellipticals this large nearly always host a billion-Sun-class black hole. Its mass here is inferred from the galaxy’s starlight, not measured directly.'
+    },
+    {
+      id: 'ic1101-star', name: 'IC 1101*', type: 'blackhole',
+      class: 'Supermassive black hole · inferred',
+      parent: 'ic1101', local: { r: 0, a: 0 }, radius: 20,
+      palette: ['--cyber-pink', '--golden-yellow'],
+      spinSpeed: 0.0005,
+      distance: '~1.04 billion ly',
+      size: '~40–100 billion solar masses (inferred)',
+      desc: 'If the estimates hold, this is one of the heaviest black holes in the nearby universe, rivaling TON 618. Its mass is extrapolated from the galaxy’s size and starlight; nothing has resolved it directly.'
+    },
+    {
+      id: 'm32-star', name: 'M32*', type: 'blackhole',
+      class: 'Supermassive black hole',
+      parent: 'm32', local: { r: 0, a: 0 }, radius: 8,
+      palette: ['--cyber-pink', '--golden-yellow'],
+      spinSpeed: 0.0007,
+      distance: '~2.5 million ly',
+      size: '~2–3 million solar masses',
+      desc: 'A black hole about as heavy as the Milky Way’s own, hiding in a galaxy a fraction of the size — one more hint that M32 is the stripped remnant of something far bigger.'
     },
 
     /* ══ VOIDS (the empty gaps BETWEEN galaxies) ══ */
