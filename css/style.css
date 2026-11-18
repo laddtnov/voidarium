@@ -229,13 +229,26 @@ a.glow-btn {
 }
 .destinations.open .dest-list { display: block; }
 .dest-group {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   font-family: var(--font-terminal);
   font-size: 0.95rem;
   letter-spacing: 0.2em;
   color: var(--hud-dim);
   padding: 10px 12px 4px;
 }
+.dest-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
 .dest-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   padding: 7px 12px 7px 22px;
@@ -249,6 +262,23 @@ a.glow-btn {
   position: absolute; left: 10px;
   color: var(--hud-dim);
 }
+.dest-item.has-kids::before { content: none; }
+.dest-caret {
+  position: absolute;
+  left: 4px; top: 50%;
+  width: 18px; height: 18px;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--hud-dim);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.dest-caret:hover { color: var(--neon-cyan); }
+.dest-item.open .dest-caret { transform: translateY(-50%) rotate(90deg); }
+.dest-name { flex: 1; min-width: 0; }
 .dest-item.child {
   padding-left: 38px;
   color: var(--text-dim);
