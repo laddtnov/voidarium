@@ -50,6 +50,7 @@ Voidarium is a zero-dependency universe map rendered entirely on a single `<canv
 - **Orbit lock** — when you visit an object inside a spinning galaxy, the camera follows it around its orbit; drag or scroll to break the lock
 - **Holographic info cards** — scanline-swept panels with a VT323 typewriter effect, real distances, sizes, and descriptions
 - **Free navigation** — drag to pan, scroll to zoom toward the cursor, destinations drawer with the full nested catalog
+- **Search & related objects** — filter the destinations drawer by name; each info card lists clickable chips for a galaxy's residents or an object's neighbors
 - **Deep links** — `?goto=ton-618` flies to an object on load; add `&snap=1` to jump there instantly
 - **Physically flavored rendering** — Keplerian accretion disks whose inner particles orbit faster and pass behind/in front of the event horizon, pulsing supergiants with diffraction spikes, sweeping lighthouse beams on neutron stars, ring and elliptical galaxy particle distributions, parallax starfield
 
@@ -67,11 +68,14 @@ python3 -m http.server 5641
 ```
 ├── index.html          # shell: HUD, destinations nav, info panel
 ├── css/
-│   ├── variables.css   # every color in the project — single source of truth
+│   ├── variables.css   # palette, glows, fonts (some overlay tints live in style.css)
 │   └── style.css       # neon HUD, glow effects, scanlines, responsive layout
-└── js/
-    ├── data.js         # galaxiesData — the object catalog (add entries here)
-    └── main.js         # canvas engine: camera, rotation, renderers, travel
+├── js/
+│   ├── data.js         # galaxiesData — the object catalog (add entries here)
+│   └── main.js         # canvas engine: camera, rotation, renderers, travel
+├── assets/             # favicons + README screenshots
+├── .github/workflows/  # Vercel deploy + security review
+└── .env.example        # Vercel deploy secrets template
 ```
 
 ## ✦ Adding your own object
