@@ -49,7 +49,7 @@ Voidarium is a zero-dependency universe map rendered entirely on a single `<canv
 - **Level-of-detail reveal** — interior objects appear only when their host galaxy fills enough of the screen, and hidden objects can't be clicked
 - **Orbit lock** — when you visit an object inside a spinning galaxy, the camera follows it around its orbit; drag or scroll to break the lock
 - **Holographic info cards** — scanline-swept panels with a VT323 typewriter effect, real distances, sizes, and descriptions
-- **Free navigation** — drag to pan, scroll to zoom toward the cursor, destinations drawer with the full nested catalog
+- **Free navigation** — drag to pan, scroll to zoom toward the cursor, destinations drawer grouping galaxies by region (Local Group, Nearby, Distant) with collapsible residents and type-colored dots
 - **Search & related objects** — filter the destinations drawer by name; each info card lists clickable chips for a galaxy's residents or an object's neighbors
 - **Deep links** — `?goto=ton-618` flies to an object on load; add `&snap=1` to jump there instantly
 - **Physically flavored rendering** — Keplerian accretion disks whose inner particles orbit faster and pass behind/in front of the event horizon, pulsing supergiants with diffraction spikes, sweeping lighthouse beams on neutron stars, ring and elliptical galaxy particle distributions, parallax starfield
@@ -97,7 +97,7 @@ Everything is data-driven. Add one entry to `galaxiesData` in [`js/data.js`](js/
 }
 ```
 
-Top-level objects (galaxies, lone black holes, voids) use `x, y` world coordinates instead of `parent`/`local`.
+Top-level objects (galaxies, lone black holes, voids) use `x, y` world coordinates instead of `parent`/`local`. Galaxies also need `region: 'Local Group' | 'Nearby Universe' | 'Distant Universe'` to appear in the destinations drawer.
 
 ## ✦ How it works
 

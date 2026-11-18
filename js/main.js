@@ -885,54 +885,86 @@ document.getElementById('dest-toggle').addEventListener('click', () => {
 });
 
 {
-  const addGroup = (label) => {
-    const h = document.createElement('li');
-    h.className = 'dest-group';
-    h.textContent = label;
-    destList.appendChild(h);
+  const REGIONS = ['Local Group', 'Nearby Universe', 'Distant Universe'];
+  const search = document.getElementById('dest-search');
+  const sections = [];
+
+  const makeEl = (tag, cls, text) => {
+    const el = document.createElement(tag);
+    el.className = cls;
+    if (text !== undefined) el.textContent = text;
+    return el;
   };
   const addItem = (o, isChild) => {
-    const li = document.createElement('li');
-    li.className = 'dest-item' + (isChild ? ' child' : '');
-    li.textContent = o.data.name;
+    const li = makeEl('li', 'dest-item' + (isChild ? ' child' : ''));
+    if (isChild) li.appendChild(makeEl('span', 'dot dot-' + o.data.type));
+    li.appendChild(makeEl('span', 'dest-name', o.data.name));
     li.addEventListener('click', () => travelTo(o));
     destList.appendChild(li);
+    return li;
+  };
+  // a header plus one expandable row per host; interior objects sit beneath it
+  const addSection = (label, hosts) => {
+    const head = makeEl('li', 'dest-group', label);
+    head.appendChild(makeEl('span', 'dest-count', hosts.length));
+    destList.appendChild(head);
+    const entries = hosts.map((host) => {
+      const li = addItem(host, false);
+      const kids = objects.filter((o) => o.parent === host).map((c) => ({
+        li: addItem(c, true),
+        name: c.data.name.toLowerCase(),
+      }));
+      const entry = { li, kids, name: host.data.name.toLowerCase(), open: false, caret: null };
+      if (kids.length) {
+        li.classList.add('has-kids');
+        entry.caret = makeEl('button', 'dest-caret', '▸');
+        entry.caret.setAttribute('aria-label', 'Show objects in ' + host.data.name);
+        entry.caret.addEventListener('click', (e) => {
+          e.stopPropagation();
+          entry.open = !entry.open;
+          render();
+        });
+        li.prepend(entry.caret);
+        li.appendChild(makeEl('span', 'dest-count', kids.length));
+      }
+      return entry;
+    });
+    sections.push({ head, entries });
   };
 
-  // galaxies with their interior objects nested beneath them
-  addGroup('GALAXIES');
-  for (const g of objects.filter((o) => o.data.type === 'galaxy')) {
-    addItem(g, false);
-    for (const c of objects.filter((o) => o.parent === g)) addItem(c, true);
-  }
-  const loneBlackHoles = objects.filter((o) => !o.parent && o.data.type === 'blackhole');
-  if (loneBlackHoles.length) {
-    addGroup('DEEP SPACE');
-    for (const o of loneBlackHoles) addItem(o, false);
-  }
-  addGroup('COSMIC VOIDS');
-  for (const o of objects) {
-    if (o.data.type === 'void') addItem(o, false);
+  // collapsed: only hosts. searching: only matches, hosts auto-expand around child hits
+  function render() {
+    const q = search.value.trim().toLowerCase();
+    for (const sec of sections) {
+      let anyVisible = false;
+      for (const e of sec.entries) {
+        let kidHit = false;
+        for (const k of e.kids) {
+          const hit = !!q && k.name.includes(q);
+          k.li.style.display = (q ? hit : e.open) ? '' : 'none';
+          kidHit = kidHit || hit;
+        }
+        const visible = !q || e.name.includes(q) || kidHit;
+        e.li.style.display = visible ? '' : 'none';
+        const expanded = q ? kidHit : e.open;
+        e.li.classList.toggle('open', expanded);
+        if (e.caret) e.caret.setAttribute('aria-expanded', expanded);
+        anyVisible = anyVisible || visible;
+      }
+      sec.head.style.display = anyVisible ? '' : 'none';
+    }
   }
 
-  // live filter: hide non-matching items, hide a group header only when
-  // every item under it (up to the next header) is hidden too
-  const rows = [...destList.children];
-  document.getElementById('dest-search').addEventListener('input', (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    let groupHasMatch = false;
-    for (let i = rows.length - 1; i >= 0; i--) {
-      const row = rows[i];
-      if (row.className === 'dest-group') {
-        row.style.display = groupHasMatch ? '' : 'none';
-        groupHasMatch = false;
-      } else {
-        const match = !q || row.textContent.toLowerCase().includes(q);
-        row.style.display = match ? '' : 'none';
-        if (match) groupHasMatch = true;
-      }
-    }
-  });
+  const galaxies = objects.filter((o) => o.data.type === 'galaxy');
+  for (const r of REGIONS) {
+    addSection(r.toUpperCase(), galaxies.filter((g) => g.data.region === r));
+  }
+  const loneBlackHoles = objects.filter((o) => !o.parent && o.data.type === 'blackhole');
+  if (loneBlackHoles.length) addSection('DEEP SPACE', loneBlackHoles);
+  addSection('COSMIC VOIDS', objects.filter((o) => o.data.type === 'void'));
+
+  search.addEventListener('input', render);
+  render();
 }
 
 /* ── Main loop ──

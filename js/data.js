@@ -3,6 +3,8 @@
 
    Top-level objects (galaxies, lone black holes, voids):
      x, y     → world coordinates (map units)
+     region   → galaxies only: 'Local Group' | 'Nearby Universe' | 'Distant Universe'
+                (drawer grouping; a galaxy without one is not listed)
 
    Interior objects (stars / black holes inside a galaxy):
      parent   → id of the host galaxy
@@ -20,6 +22,7 @@ const galaxiesData = {
     /* ══ GALAXIES ══ */
     {
       id: 'milky-way', name: 'MILKY WAY', type: 'galaxy',
+      region: 'Local Group',
       class: 'Barred spiral · SBbc',
       x: 0, y: 0, radius: 225, arms: 4,
       palette: ['--neon-cyan', '--star-white', '--neon-purple'],
@@ -30,6 +33,7 @@ const galaxiesData = {
     },
     {
       id: 'andromeda', name: 'ANDROMEDA · M31', type: 'galaxy',
+      region: 'Local Group',
       class: 'Spiral · SA(s)b',
       x: 640, y: -430, radius: 165, arms: 2,
       palette: ['--cyber-pink', '--star-white', '--neon-purple'],
@@ -40,6 +44,7 @@ const galaxiesData = {
     },
     {
       id: 'triangulum', name: 'TRIANGULUM · M33', type: 'galaxy',
+      region: 'Local Group',
       class: 'Spiral · SA(s)cd',
       x: 1060, y: 140, radius: 95, arms: 3,
       palette: ['--neon-purple', '--star-white', '--neon-cyan'],
@@ -50,6 +55,7 @@ const galaxiesData = {
     },
     {
       id: 'whirlpool', name: 'WHIRLPOOL · M51', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Interacting spiral · SA(s)bc pec',
       x: -720, y: -540, radius: 110, arms: 2,
       palette: ['--neon-cyan', '--star-white', '--cyber-pink'],
@@ -60,6 +66,7 @@ const galaxiesData = {
     },
     {
       id: 'sombrero', name: 'SOMBRERO · M104', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Lenticular-spiral · SA(s)a',
       x: -1080, y: 320, radius: 90, arms: 3,
       palette: ['--golden-yellow', '--star-white', '--neon-cyan'],
@@ -70,6 +77,7 @@ const galaxiesData = {
     },
     {
       id: 'pinwheel', name: 'PINWHEEL · M101', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Grand-design spiral · SAB(rs)cd',
       x: -300, y: -1250, radius: 120, arms: 4,
       palette: ['--neon-cyan', '--star-white', '--terminal-green'],
@@ -80,6 +88,7 @@ const galaxiesData = {
     },
     {
       id: 'messier-87', name: 'MESSIER 87', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Supergiant elliptical · E0', elliptical: true,
       x: -380, y: -920, radius: 130,
       palette: ['--golden-yellow', '--star-white', '--star-red'],
@@ -90,6 +99,7 @@ const galaxiesData = {
     },
     {
       id: 'lmc', name: 'LARGE MAGELLANIC CLOUD', type: 'galaxy',
+      region: 'Local Group',
       class: 'Barred irregular · SB(s)m',
       x: 330, y: 270, radius: 70, arms: 2,
       palette: ['--terminal-green', '--star-white', '--neon-cyan'],
@@ -100,6 +110,7 @@ const galaxiesData = {
     },
     {
       id: 'centaurus-a', name: 'CENTAURUS A', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Elliptical + dust lane · S0 pec', elliptical: true,
       x: 150, y: 1300, radius: 105,
       palette: ['--golden-yellow', '--star-white', '--cyber-pink'],
@@ -110,6 +121,7 @@ const galaxiesData = {
     },
     {
       id: 'cartwheel', name: 'CARTWHEEL GALAXY', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Ring galaxy · S pec', ring: true,
       x: 1500, y: 450, radius: 85,
       palette: ['--neon-cyan', '--cyber-pink', '--star-white'],
@@ -120,6 +132,7 @@ const galaxiesData = {
     },
     {
       id: 'm82', name: 'CIGAR GALAXY · M82', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Starburst irregular · I0',
       x: -1500, y: 800, radius: 75, arms: 2,
       palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
@@ -130,6 +143,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc1313', name: 'TOPSY TURVY · NGC 1313', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Barred spiral · SB(s)d',
       x: 1000, y: 1050, radius: 65, arms: 3,
       palette: ['--terminal-green', '--star-white', '--neon-cyan'],
@@ -140,6 +154,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc253', name: 'SCULPTOR GALAXY · NGC 253', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Starburst spiral · SAB(s)c',
       x: 900, y: -1080, radius: 85, arms: 4,
       palette: ['--golden-yellow', '--star-white', '--terminal-green'],
@@ -150,6 +165,7 @@ const galaxiesData = {
     },
     {
       id: 'phoenix-cluster-galaxy', name: 'PHOENIX CLUSTER GALAXY', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Brightest cluster galaxy · cD', elliptical: true,
       x: -1550, y: -350, radius: 80,
       palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
@@ -160,6 +176,7 @@ const galaxiesData = {
     },
     {
       id: 'ton-618-host', name: 'TON 618 HOST GALAXY', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Unresolved · quasar host', elliptical: true,
       x: 850, y: 720, radius: 75,
       palette: ['--neon-purple', '--star-white', '--cyber-pink'],
@@ -170,6 +187,7 @@ const galaxiesData = {
     },
     {
       id: 'ic1101', name: 'IC 1101', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Supergiant elliptical · cD', elliptical: true,
       x: 1650, y: 150, radius: 115,
       palette: ['--neon-purple', '--star-white', '--void-blue'],
@@ -180,6 +198,7 @@ const galaxiesData = {
     },
     {
       id: 'm60', name: 'MESSIER 60', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Giant elliptical · E2', elliptical: true,
       x: -900, y: 1000, radius: 95,
       palette: ['--golden-yellow', '--star-white', '--neon-purple'],
@@ -190,6 +209,7 @@ const galaxiesData = {
     },
     {
       id: 'maffei1', name: 'MAFFEI 1', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Giant elliptical · E3', elliptical: true,
       x: 280, y: -380, radius: 60,
       palette: ['--star-red', '--star-white', '--golden-yellow'],
@@ -200,6 +220,7 @@ const galaxiesData = {
     },
     {
       id: 'cygnus-a', name: 'CYGNUS A', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Elliptical radio galaxy · FR II', elliptical: true,
       x: -1200, y: -1200, radius: 100,
       palette: ['--cyber-pink', '--star-white', '--void-blue'],
@@ -210,6 +231,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc1300', name: 'NGC 1300', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Barred spiral · SB(rs)bc',
       x: 1150, y: -1050, radius: 90, arms: 2,
       palette: ['--neon-purple', '--star-white', '--neon-cyan'],
@@ -220,6 +242,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc3923', name: 'NGC 3923', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Elliptical shell galaxy · E4-5', elliptical: true, shell: true,
       x: -1200, y: 550, radius: 85,
       palette: ['--golden-yellow', '--star-white', '--void-blue'],
@@ -230,6 +253,7 @@ const galaxiesData = {
     },
     {
       id: 'antennae', name: 'ANTENNAE GALAXIES · NGC 4038/4039', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Colliding spiral pair', arms: 2,
       x: 1750, y: -250, radius: 90,
       palette: ['--cyber-pink', '--star-white', '--golden-yellow'],
@@ -240,6 +264,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc1569', name: 'NGC 1569', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Dwarf starburst galaxy · Irr',
       x: -1600, y: -700, radius: 55, arms: 2,
       palette: ['--cyber-pink', '--golden-yellow', '--star-white'],
@@ -250,6 +275,7 @@ const galaxiesData = {
     },
     {
       id: 'ngc1068', name: 'SEYFERT GALAXY · M77', type: 'galaxy',
+      region: 'Nearby Universe',
       class: 'Seyfert II · SA(rs)b', arms: 3,
       x: -100, y: 1550, radius: 95,
       palette: ['--terminal-green', '--star-white', '--neon-cyan'],
@@ -260,6 +286,7 @@ const galaxiesData = {
     },
     {
       id: 'holm15a', name: 'HOLM 15A', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Type-cD galaxy', elliptical: true,
       x: -50, y: -1650, radius: 110,
       palette: ['--void-blue', '--star-white', '--neon-purple'],
@@ -271,6 +298,7 @@ const galaxiesData = {
 
     {
       id: 'smc', name: 'SMALL MAGELLANIC CLOUD', type: 'galaxy',
+      region: 'Local Group',
       class: 'Dwarf irregular · SB(s)m pec',
       x: 470, y: 400, radius: 55, arms: 2,
       palette: ['--ice-blue', '--star-white', '--neon-purple'],
@@ -281,6 +309,7 @@ const galaxiesData = {
     },
     {
       id: 'm32', name: 'MESSIER 32', type: 'galaxy',
+      region: 'Local Group',
       class: 'Compact elliptical · cE2', elliptical: true,
       x: 820, y: -300, radius: 40,
       palette: ['--golden-yellow', '--star-red', '--star-white'],
@@ -291,6 +320,7 @@ const galaxiesData = {
     },
     {
       id: 'hoags-object', name: 'HOAG’S OBJECT', type: 'galaxy',
+      region: 'Distant Universe',
       class: 'Ring galaxy · (R) pec', ring: true,
       x: -700, y: -150, radius: 75,
       palette: ['--neon-cyan', '--golden-yellow', '--star-white'],
